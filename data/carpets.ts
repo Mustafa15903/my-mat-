@@ -1,0 +1,51 @@
+// Sample carpet products data
+export const carpets = [
+  {
+    id: "1",
+    name: "Persian Rug - Royal Blue",
+    price: 450,
+    image: "/carpets/persian-blue.jpg",
+    category: "Persian",
+    description: "Luxurious traditional Persian rug with intricate patterns",
+  },
+  {
+    id: "2",
+    name: "Modern Geometric Red",
+    price: 320,
+    image: "/carpets/modern-red.jpg",
+    category: "Modern",
+    description: "Contemporary geometric design in warm red tones",
+  },
+  {
+    id: "3",
+    name: "Turkish Kilim Orange",
+    price: 280,
+    image: "/carpets/kilim-orange.jpg",
+    category: "Turkish",
+    description: "Authentic Turkish kilim with vibrant orange colors",
+  },
+  {
+    id: "4",
+    name: "Shag Carpet Cream",
+    price: 220,
+    image: "/carpets/shag-cream.jpg",
+    category: "Shag",
+    description: "Soft and cozy shag carpet in cream color",
+  },
+  {
+    id: "5",
+    name: "Moroccan Berber",
+    price: 380,
+    image: "/carpets/moroccan-berber.jpg",
+    category: "Moroccan",
+    description: "Handwoven Moroccan berber carpet with natural fibers",
+  },
+  {
+    id: "6",
+    name: "Indian Jute Natural",
+    price: 190,
+    image: "/carpets/jute-natural.jpg",
+    category: "Jute",
+    description: "Eco-friendly natural jute carpet",
+  },
+];

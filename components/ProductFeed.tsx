@@ -7,10 +7,17 @@ import { Product } from '@/types';
 
 interface ProductFeedProps {
   products: Product[];
-  onAddToCart: (product: Product) => void;
+  onAddToCart?: (product: Product) => void;
 }
 
 export default function ProductFeed({ products, onAddToCart }: ProductFeedProps) {
+  const handleAddToCart = (product: Product) => {
+    if (onAddToCart) {
+      onAddToCart(product);
+    } else {
+      console.log('Added to cart:', product);
+    }
+  };
   const containerRef = useRef<HTMLDivElement>(null);
   const [centeredIndex, setCenteredIndex] = useState(0);
 
@@ -138,7 +145,7 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
             >
               <ProductCard
                 product={product}
-                onAddToCart={onAddToCart}
+                onAddToCart={handleAddToCart}
                 index={index}
               />
             </div>

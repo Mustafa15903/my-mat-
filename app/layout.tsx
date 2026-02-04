@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "myMat - Premium Prayer Mats",
-  description: "Luxury Islamic prayer mats with minimal, elegant design",
+  title: "myMat - Premium  Mats",
+  description: "Luxury mats with minimal, elegant design",
 };
 
 export default function RootLayout({

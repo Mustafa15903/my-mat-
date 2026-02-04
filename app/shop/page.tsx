@@ -18,11 +18,6 @@ export default function ShopPage() {
         originalPrice: parseInt(carpet.id) % 2 === 0 ? carpet.price * 1.2 : undefined,
     }));
 
-    const handleAddToCart = (product: Product) => {
-        // This function will need to be connected to the global cart context in the future
-        console.log('Added to cart:', product);
-    };
-
     return (
         <main className="min-h-screen bg-neutral-50" style={{ backgroundColor: luxuryColors.bgLight }}>
             <div className="pt-20">
@@ -31,7 +26,7 @@ export default function ShopPage() {
                         Shop All
                     </h1>
                 </div>
-                <ProductFeed products={products} onAddToCart={handleAddToCart} />
+                <ProductFeed products={products} />
             </div>
         </main>
     );

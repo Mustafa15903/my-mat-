@@ -7,6 +7,9 @@ import { Plus, Pencil, Trash2, Loader2, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
+// Prevent static generation - this page needs runtime environment variables
+export const dynamic = 'force-dynamic';
+
 export default function ProductsPage() {
     const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);

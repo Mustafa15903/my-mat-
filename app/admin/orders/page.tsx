@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Eye, Loader2, Package, Search } from 'lucide-react';
 
+// Prevent static generation - this page needs runtime environment variables
+export const dynamic = 'force-dynamic';
+
 export default function OrdersPage() {
     const [orders, setOrders] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);

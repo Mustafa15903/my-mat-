@@ -6,6 +6,9 @@ import { Package, ShoppingBag, FolderTree, TrendingUp, Loader2 } from 'lucide-re
 import OverviewChart from './components/OverviewChart';
 import { luxuryColors } from '@/lib/theme';
 
+// Prevent static generation - this page needs runtime environment variables
+export const dynamic = 'force-dynamic';
+
 export default function AdminPage() {
   const [stats, setStats] = useState({
     products: 0,

@@ -6,6 +6,9 @@ import { Plus, Trash2, Loader2, Pencil, X, Check, Search } from 'lucide-react';
 import { luxuryColors } from '@/lib/theme';
 import { toast } from 'sonner';
 
+// Prevent static generation - this page needs runtime environment variables
+export const dynamic = 'force-dynamic';
+
 export default function CategoriesPage() {
     const [categories, setCategories] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);

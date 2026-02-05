@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import ProductCard from './ProductCard';
 import { luxuryColors } from '@/lib/theme';
 import { Product } from '@/types';
+import { useCart } from '@/context/CartContext';
 
 interface ProductFeedProps {
   products: Product[];
@@ -11,11 +12,15 @@ interface ProductFeedProps {
 }
 
 export default function ProductFeed({ products, onAddToCart }: ProductFeedProps) {
+  const { addToCart } = useCart();
+
   const handleAddToCart = (product: Product) => {
     if (onAddToCart) {
       onAddToCart(product);
     } else {
-      console.log('Added to cart:', product);
+      addToCart(product);
+      // Optional: Add a simple alert or toast here if global toast is not available
+      // alert(`Added ${product.name} to cart`); 
     }
   };
   const containerRef = useRef<HTMLDivElement>(null);
@@ -112,7 +117,7 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
           className="text-sm tracking-wide"
           style={{ color: luxuryColors.textSecondary }}
         >
-          Handcrafted prayer mats for sacred moments
+          Crafted with care for moments of devotion
         </p>
       </div>
 

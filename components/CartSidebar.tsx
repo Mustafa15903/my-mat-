@@ -1,9 +1,13 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { X, Minus, Plus, Trash2 } from 'lucide-react';
 import { luxuryColors } from '@/lib/theme';
+import { supabase } from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
+import { useCart } from '@/context/CartContext';
+import { toast } from 'sonner';
 
 interface CartItem {
   id: number;
@@ -33,6 +37,9 @@ export default function CartSidebar({
   const sidebarRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLDivElement>(null);
+  const [checkingOut, setCheckingOut] = useState(false);
+  const { clearCart } = useCart();
+  const router = useRouter();
 
   // Handle open/close animations
   useEffect(() => {
@@ -87,6 +94,84 @@ export default function CartSidebar({
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const tax = subtotal * 0.1;
   const total = subtotal + tax;
+  const [showCheckoutForm, setShowCheckoutForm] = useState(false);
+  const [customerInfo, setCustomerInfo] = useState({
+    name: '',
+    email: '',
+    address: ''
+  });
+
+  const handleCheckoutClick = () => {
+    if (items.length === 0) {
+      toast.error('Your cart is empty');
+      return;
+    }
+    setShowCheckoutForm(true);
+  };
+
+  const handleCheckoutProcess = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validation
+    if (!customerInfo.name.trim() || !customerInfo.email.trim() || !customerInfo.address.trim()) {
+      toast.error('Please fill in all fields');
+      return;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(customerInfo.email)) {
+      toast.error('Please enter a valid email');
+      return;
+    }
+
+    if (checkingOut) return;
+    setCheckingOut(true);
+
+    try {
+      // 1. Create Order
+      const { data: orderData, error: orderError } = await supabase
+        .from('orders')
+        .insert([{
+          customer_email: customerInfo.email,
+          customer_name: customerInfo.name,
+          total_amount: total,
+          status: 'pending',
+          shipping_address: customerInfo.address
+        }])
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      // 2. Create Order Items
+      const orderItems = items.map(item => ({
+        order_id: orderData.id,
+        product_id: item.id,
+        product_name: item.name,
+        quantity: item.quantity,
+        price_at_time: item.price,
+        image_url: item.image
+      }));
+
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+
+      if (itemsError) throw itemsError;
+
+      // 3. Success
+      toast.success('Order placed successfully! Check your email for details.');
+      clearCart();
+      setCustomerInfo({ name: '', email: '', address: '' });
+      setShowCheckoutForm(false);
+      onClose(); // Close sidebar
+
+    } catch (error) {
+      console.error('Checkout failed:', error);
+      toast.error('Checkout failed. Please try again.');
+    } finally {
+      setCheckingOut(false);
+    }
+  };
 
   return (
     <>
@@ -249,17 +334,97 @@ export default function CartSidebar({
               </div>
             </div>
 
-            <button
-              onClick={onCheckout}
-              className="w-full py-4 rounded-xl font-medium tracking-wide text-center transition-all duration-300 hover:opacity-90 active:scale-[0.98] shadow-lg"
-              style={{
-                backgroundColor: luxuryColors.textPrimary,
-                color: luxuryColors.bgLight,
-                boxShadow: '0 4px 14px 0 rgba(0,0,0,0.1)'
-              }}
-            >
-              Checkout Now
-            </button>
+            {!showCheckoutForm ? (
+              <button
+                onClick={handleCheckoutClick}
+                className="w-full py-4 rounded-xl font-medium tracking-wide text-center transition-all duration-300 hover:opacity-90 active:scale-[0.98] shadow-lg"
+                style={{
+                  backgroundColor: luxuryColors.textPrimary,
+                  color: luxuryColors.bgLight,
+                  boxShadow: '0 4px 14px 0 rgba(0,0,0,0.1)'
+                }}
+              >
+                Proceed to Checkout
+              </button>
+            ) : (
+              <form onSubmit={handleCheckoutProcess} className="space-y-3">
+                <div>
+                  <label className="block text-xs font-medium mb-1" style={{ color: luxuryColors.textSecondary }}>
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    value={customerInfo.name}
+                    onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
+                    className="w-full px-3 py-2 rounded-lg text-sm outline-none focus:ring-2"
+                    style={{
+                      border: `1px solid ${luxuryColors.border}`,
+                      color: luxuryColors.textPrimary
+                    }}
+                    placeholder="John Doe"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium mb-1" style={{ color: luxuryColors.textSecondary }}>
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    value={customerInfo.email}
+                    onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
+                    className="w-full px-3 py-2 rounded-lg text-sm outline-none focus:ring-2"
+                    style={{
+                      border: `1px solid ${luxuryColors.border}`,
+                      color: luxuryColors.textPrimary
+                    }}
+                    placeholder="john@example.com"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium mb-1" style={{ color: luxuryColors.textSecondary }}>
+                    Shipping Address
+                  </label>
+                  <textarea
+                    value={customerInfo.address}
+                    onChange={(e) => setCustomerInfo({ ...customerInfo, address: e.target.value })}
+                    className="w-full px-3 py-2 rounded-lg text-sm outline-none focus:ring-2 resize-none"
+                    style={{
+                      border: `1px solid ${luxuryColors.border}`,
+                      color: luxuryColors.textPrimary
+                    }}
+                    placeholder="123 Main St, City, Country"
+                    rows={2}
+                    required
+                  />
+                </div>
+                <div className="flex gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowCheckoutForm(false)}
+                    className="flex-1 py-3 rounded-lg font-medium text-sm transition-colors"
+                    style={{
+                      border: `1px solid ${luxuryColors.border}`,
+                      color: luxuryColors.textSecondary
+                    }}
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={checkingOut}
+                    className="flex-1 py-3 rounded-lg font-medium text-sm transition-all hover:opacity-90 disabled:opacity-50"
+                    style={{
+                      backgroundColor: luxuryColors.accentGold,
+                      color: luxuryColors.bgLight
+                    }}
+                  >
+                    {checkingOut ? 'Processing...' : 'Place Order'}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         )}
       </aside>

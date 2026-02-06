@@ -15,7 +15,7 @@ import { useCart } from '@/context/CartContext';
 export default function Page() {
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
   const [authOpen, setAuthOpen] = useState(false);
@@ -82,9 +82,9 @@ export default function Page() {
     // Handle checkout flow
   };
 
-  const filteredProducts = selectedCategory === 'All'
-    ? products
-    : products.filter(p => p.category === selectedCategory);
+  const filteredProducts = selectedCategory
+    ? products.filter(p => p.category === selectedCategory)
+    : products;
 
   return (
     <div
@@ -107,24 +107,19 @@ export default function Page() {
         ) : (
           <>
             {/* Filter Buttons */}
-            <div className="flex flex-wrap justify-center gap-4 px-4 mb-4 z-10 relative">
-              <button
-                onClick={() => setSelectedCategory('All')}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${selectedCategory === 'All'
-                  ? 'bg-black text-white shadow-lg scale-105'
-                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                  }`}
-              >
-                All
-              </button>
+            <div className="flex flex-wrap justify-center gap-3 px-4 mb-8 z-10 relative">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.name)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${selectedCategory === cat.name
-                    ? 'bg-black text-white shadow-lg scale-105'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                  className={`px-5 py-2.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${selectedCategory === cat.name
+                    ? 'text-white shadow-md scale-105'
+                    : 'text-gray-700 hover:text-gray-900 border-2 hover:border-opacity-100'
                     }`}
+                  style={{
+                    backgroundColor: selectedCategory === cat.name ? luxuryColors.textPrimary : 'transparent',
+                    borderColor: selectedCategory === cat.name ? luxuryColors.textPrimary : luxuryColors.border,
+                  }}
                 >
                   {cat.name}
                 </button>

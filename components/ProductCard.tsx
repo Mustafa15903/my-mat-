@@ -21,14 +21,14 @@ export default React.memo(function ProductCard({ product, onAddToCart, index }: 
 
   return (
     <div
-      className="group relative flex flex-col w-full bg-white rounded-[20px] shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 ease-out overflow-hidden border border-gray-100/50"
+      className="group relative flex flex-col w-full bg-white/95 transition-all duration-400 ease-out overflow-hidden rounded-[12px] hover:rounded-[16px]"
       style={{
         animation: 'fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards',
         animationDelay: `${index * 0.1}s`,
       }}
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-50">
+      <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-50/50 transition-all duration-500 ease-in-out">
         <Image
           src={product.image}
           alt={product.name}
@@ -42,32 +42,32 @@ export default React.memo(function ProductCard({ product, onAddToCart, index }: 
 
         {/* Discount Badge */}
         {hasDiscount && (
-          <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full shadow-sm text-xs font-semibold tracking-wide text-gray-900 border border-black/5">
+          <div className="absolute top-4 left-4 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm text-xs font-semibold tracking-wide border" style={{ backgroundColor: `${luxuryColors.accentGold}20`, color: luxuryColors.textPrimary, borderColor: luxuryColors.accentGold }}>
             -{discountPercentage}%
           </div>
         )}
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-col flex-grow p-5 space-y-4">
+      <div className="flex flex-col flex-grow p-5 space-y-3">
 
         {/* Title & Description */}
         <div className="space-y-1">
-          <h3 className="text-lg font-medium text-gray-900 tracking-tight leading-snug">
+          <h3 className="text-lg font-medium tracking-tight leading-snug" style={{ color: luxuryColors.textPrimary }}>
             {product.name}
           </h3>
-          <p className="text-sm text-gray-500 font-normal leading-relaxed line-clamp-2 min-h-[2.5em]">
+          <p className="text-sm font-normal leading-relaxed line-clamp-2 min-h-[2.5em]" style={{ color: luxuryColors.textSecondary }}>
             {product.description}
           </p>
         </div>
 
         {/* Price Section */}
         <div className="flex items-baseline gap-2 mt-auto pt-2">
-          <span className="text-xl font-bold text-gray-900 tracking-tight">
+          <span className="text-xl font-bold tracking-tight" style={{ color: luxuryColors.accentGold }}>
             ${product.price.toFixed(0)}
           </span>
           {hasDiscount && (
-            <span className="text-sm text-gray-400 line-through font-normal">
+            <span className="text-sm line-through font-normal" style={{ color: luxuryColors.textSecondary }}>
               ${product.originalPrice?.toFixed(0)}
             </span>
           )}
@@ -76,7 +76,8 @@ export default React.memo(function ProductCard({ product, onAddToCart, index }: 
         {/* Add to Cart Button */}
         <button
           onClick={() => onAddToCart(product)}
-          className="relative w-full overflow-hidden rounded-xl bg-black text-white py-3.5 px-4 text-sm font-medium tracking-wide transition-all duration-300 hover:bg-gray-900 hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md flex items-center justify-center gap-2 group/btn"
+          className="relative w-full overflow-hidden rounded-xl text-white py-3.5 px-4 text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md flex items-center justify-center gap-2 group/btn"
+          style={{ backgroundColor: luxuryColors.textPrimary }}
         >
           <ShoppingBag className="w-4 h-4 transition-transform duration-300 group-hover/btn:-translate-y-0.5" />
           <span>Add to Cart</span>

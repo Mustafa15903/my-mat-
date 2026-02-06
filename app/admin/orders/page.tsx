@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Eye, Loader2, Package, Search } from 'lucide-react';
+import { luxuryColors } from '@/lib/theme';
 
 // Prevent static generation - this page needs runtime environment variables
 export const dynamic = 'force-dynamic';
@@ -36,12 +37,12 @@ export default function OrdersPage() {
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'pending': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
-            case 'processing': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400';
-            case 'shipped': return 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400';
-            case 'delivered': return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
-            case 'cancelled': return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
-            default: return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400';
+            case 'pending': return { bg: `${luxuryColors.accentGold}20`, text: luxuryColors.accentGold };
+            case 'processing': return { bg: `#3b82f620`, text: '#3b82f6' };
+            case 'shipped': return { bg: `#a855f720`, text: '#a855f7' };
+            case 'delivered': return { bg: `${luxuryColors.success}20`, text: luxuryColors.success };
+            case 'cancelled': return { bg: `${luxuryColors.error}20`, text: luxuryColors.error };
+            default: return { bg: `${luxuryColors.border}`, text: luxuryColors.textSecondary };
         }
     };
 
@@ -53,81 +54,105 @@ export default function OrdersPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight">Orders</h1>
-                <p className="text-gray-500 dark:text-gray-400">Manage customer orders</p>
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Orders</h1>
+                <p className="text-xs sm:text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Manage customer orders</p>
             </div>
 
             {/* Search */}
-            <div className="bg-white dark:bg-zinc-950 p-4 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm">
+            <div className="p-3 sm:p-4 rounded-xl shadow-sm" style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}>
                 <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: luxuryColors.textSecondary }} />
                     <input
                         type="text"
                         placeholder="Search by Order ID or Email..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-zinc-800 bg-gray-50 dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-10 pr-4 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 transition-all"
+                        style={{
+                            border: `1px solid ${luxuryColors.border}`,
+                            backgroundColor: luxuryColors.bgLight,
+                            color: luxuryColors.textPrimary
+                        }}
                     />
                 </div>
             </div>
 
             {/* Orders Table */}
-            <div className="bg-white dark:bg-zinc-950 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden">
+            <div className="rounded-xl shadow-sm overflow-hidden" style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}>
                 {loading ? (
                     <div className="flex justify-center items-center h-64">
-                        <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
+                        <Loader2 className="w-8 h-8 animate-spin" style={{ color: luxuryColors.accentGold }} />
                     </div>
                 ) : filteredOrders.length === 0 ? (
-                    <div className="p-12 text-center flex flex-col items-center">
-                        <div className="w-12 h-12 bg-gray-100 dark:bg-zinc-900 rounded-full flex items-center justify-center mb-4 text-gray-400">
+                    <div className="p-8 sm:p-12 text-center flex flex-col items-center">
+                        <div className="w-12 h-12 rounded-full flex items-center justify-center mb-4" style={{ backgroundColor: `${luxuryColors.border}40`, color: luxuryColors.textSecondary }}>
                             <Package className="w-6 h-6" />
                         </div>
-                        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">No Orders Found</h3>
-                        <p className="text-gray-500 dark:text-gray-400 mt-1">Wait for customers to make a purchase.</p>
+                        <h3 className="text-base sm:text-lg font-medium" style={{ color: luxuryColors.textPrimary }}>No Orders Found</h3>
+                        <p className="text-xs sm:text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Wait for customers to make a purchase.</p>
                     </div>
                 ) : (
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left text-sm">
-                            <thead className="bg-gray-50 dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800">
+                        <table className="w-full text-left text-xs sm:text-sm">
+                            <thead style={{ backgroundColor: `${luxuryColors.border}20`, borderBottom: `1px solid ${luxuryColors.border}` }}>
                                 <tr>
-                                    <th className="px-6 py-3 font-medium text-gray-500 dark:text-gray-400">Order ID</th>
-                                    <th className="px-6 py-3 font-medium text-gray-500 dark:text-gray-400">Date</th>
-                                    <th className="px-6 py-3 font-medium text-gray-500 dark:text-gray-400">Customer</th>
-                                    <th className="px-6 py-3 font-medium text-gray-500 dark:text-gray-400">Total</th>
-                                    <th className="px-6 py-3 font-medium text-gray-500 dark:text-gray-400">Status</th>
-                                    <th className="px-6 py-3 font-medium text-gray-500 dark:text-gray-400 text-right">Actions</th>
+                                    <th className="px-3 sm:px-6 py-3 font-medium" style={{ color: luxuryColors.textSecondary }}>Order ID</th>
+                                    <th className="px-3 sm:px-6 py-3 font-medium" style={{ color: luxuryColors.textSecondary }}>Date</th>
+                                    <th className="px-3 sm:px-6 py-3 font-medium" style={{ color: luxuryColors.textSecondary }}>Customer</th>
+                                    <th className="px-3 sm:px-6 py-3 font-medium" style={{ color: luxuryColors.textSecondary }}>Total</th>
+                                    <th className="px-3 sm:px-6 py-3 font-medium" style={{ color: luxuryColors.textSecondary }}>Status</th>
+                                    <th className="px-3 sm:px-6 py-3 font-medium text-right" style={{ color: luxuryColors.textSecondary }}>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-200 dark:divide-zinc-800">
-                                {filteredOrders.map((order) => (
-                                    <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-zinc-900/50 transition-colors">
-                                        <td className="px-6 py-4 font-mono text-xs text-gray-500">#{order.id}</td>
-                                        <td className="px-6 py-4 text-gray-600 dark:text-gray-300">
-                                            {new Date(order.created_at).toLocaleDateString()}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <div className="font-medium text-gray-900 dark:text-gray-100">{order.customer_name || 'Guest'}</div>
-                                            <div className="text-xs text-gray-500">{order.customer_email}</div>
-                                        </td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100">
-                                            ${order.total_amount?.toFixed(2)}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${getStatusColor(order.status)}`}>
-                                                {order.status}
-                                            </span>
-                                        </td>
-                                        <td className="px-6 py-4 text-right">
-                                            <Link
-                                                href={`/admin/orders/${order.id}`}
-                                                className="inline-flex items-center justify-center p-2 text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
-                                            >
-                                                <Eye className="w-4 h-4" />
-                                                <span className="sr-only">View Details</span>
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                ))}
+                            <tbody style={{ borderColor: luxuryColors.border }}>
+                                {filteredOrders.map((order, index) => {
+                                    const statusColor = getStatusColor(order.status);
+                                    return (
+                                        <tr
+                                            key={order.id}
+                                            className="transition-colors hover:shadow-sm"
+                                            style={{
+                                                borderBottom: `1px solid ${luxuryColors.border}`,
+                                                backgroundColor: index % 2 === 0 ? 'transparent' : `${luxuryColors.border}08`
+                                            }}
+                                        >
+                                            <td className="px-3 sm:px-6 py-4 font-mono text-xs" style={{ color: luxuryColors.textSecondary }}>#{order.id}</td>
+                                            <td className="px-3 sm:px-6 py-4" style={{ color: luxuryColors.textSecondary }}>
+                                                {new Date(order.created_at).toLocaleDateString()}
+                                            </td>
+                                            <td className="px-3 sm:px-6 py-4">
+                                                <div className="font-medium" style={{ color: luxuryColors.textPrimary }}>{order.customer_name || 'Guest'}</div>
+                                                <div className="text-xs" style={{ color: luxuryColors.textSecondary }}>{order.customer_email}</div>
+                                            </td>
+                                            <td className="px-3 sm:px-6 py-4 font-medium" style={{ color: luxuryColors.textPrimary }}>
+                                                ${order.total_amount?.toFixed(2)}
+                                            </td>
+                                            <td className="px-3 sm:px-6 py-4">
+                                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize transition-all"
+                                                    style={{
+                                                        backgroundColor: statusColor.bg,
+                                                        color: statusColor.text,
+                                                    }}
+                                                >
+                                                    {order.status}
+                                                </span>
+                                            </td>
+                                            <td className="px-3 sm:px-6 py-4 text-right">
+                                                <Link
+                                                    href={`/admin/orders/${order.id}`}
+                                                    className="inline-flex items-center justify-center p-1.5 sm:p-2 rounded-lg transition-all hover:shadow-sm"
+                                                    style={{
+                                                        color: luxuryColors.accentGold,
+                                                        backgroundColor: `${luxuryColors.accentGold}10`
+                                                    }}
+                                                >
+                                                    <Eye className="w-4 h-4" />
+                                                    <span className="sr-only">View Details</span>
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>

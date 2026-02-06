@@ -49,10 +49,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Mobile Header */}
       <div
-        className="md:hidden fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-between shadow-sm"
+        className="md:hidden fixed top-0 left-0 right-0 z-50 p-3 sm:p-4 flex items-center justify-between shadow-sm"
         style={{ backgroundColor: luxuryColors.bgLight, borderBottom: `1px solid ${luxuryColors.border}` }}
       >
-        <h1 className="text-lg font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Admin Panel</h1>
+        <h1 className="text-base sm:text-lg font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Admin Panel</h1>
         <button
           onClick={toggleSidebar}
           className="p-2 -mr-2 rounded-lg transition-colors hover:bg-black/5"
@@ -77,12 +77,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         }
         style={{ backgroundColor: luxuryColors.bgLight, borderRight: `1px solid ${luxuryColors.border}` }}
       >
-        <div className="hidden md:block p-6" style={{ borderBottom: `1px solid ${luxuryColors.border}` }}>
-          <h1 className="text-xl font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Admin Panel</h1>
+        <div className="hidden md:block p-4 md:p-6" style={{ borderBottom: `1px solid ${luxuryColors.border}` }}>
+          <h1 className="text-lg md:text-xl font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Admin Panel</h1>
           <p className="text-xs mt-1" style={{ color: luxuryColors.textSecondary }}>myMat Dashboard</p>
         </div>
 
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-3 md:p-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const isActive = pathname === item.href || (pathname.startsWith(item.href + '/') && item.href !== '/admin');
             return (
@@ -97,14 +97,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   color: isActive ? luxuryColors.bgLight : luxuryColors.textPrimary,
                 }}
               >
-                <item.icon className="w-5 h-5" />
-                {item.name}
+                <item.icon className="w-5 h-5 flex-shrink-0" />
+                <span className="truncate">{item.name}</span>
               </Link>
             );
           })}
         </nav>
 
-        <div className="p-4" style={{ borderTop: `1px solid ${luxuryColors.border}` }}>
+        <div className="p-3 md:p-4" style={{ borderTop: `1px solid ${luxuryColors.border}` }}>
           <Link
             href="/"
             className="flex items-center gap-3 px-3 py-2 w-full text-sm font-medium rounded-lg transition-colors mb-2 hover:bg-black/5"
@@ -125,7 +125,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto w-full pt-16 md:pt-0">
-        <div className="p-4 md:p-8 max-w-7xl mx-auto">
+        <div className="p-3 sm:p-4 md:p-8 max-w-7xl mx-auto">
           {children}
         </div>
       </main>

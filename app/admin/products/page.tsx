@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 import { Plus, Pencil, Trash2, Loader2, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { luxuryColors } from '@/lib/theme';
 
 // Prevent static generation - this page needs runtime environment variables
 export const dynamic = 'force-dynamic';
@@ -67,12 +68,13 @@ export default function ProductsPage() {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Products</h1>
-                    <p className="text-gray-500 dark:text-gray-400">Manage your product catalog</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Products</h1>
+                    <p className="text-xs sm:text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Manage your product catalog</p>
                 </div>
                 <Link
                     href="/admin/products/add"
-                    className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm"
+                    className="inline-flex items-center px-4 py-2 rounded-lg hover:shadow-md transition-all font-medium text-sm whitespace-nowrap"
+                    style={{ backgroundColor: luxuryColors.textPrimary, color: luxuryColors.bgLight }}
                 >
                     <Plus className="w-4 h-4 mr-2" />
                     Add Product
@@ -80,66 +82,81 @@ export default function ProductsPage() {
             </div>
 
             {/* Search and Filter */}
-            <div className="flex gap-4 bg-white dark:bg-zinc-950 p-4 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm">
+            <div className="flex gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl" style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}>
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: luxuryColors.textSecondary }} />
                     <input
                         type="text"
                         placeholder="Search products..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-zinc-800 bg-gray-50 dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-10 pr-4 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 transition-all"
+                        style={{
+                            backgroundColor: luxuryColors.bgLight,
+                            border: `1px solid ${luxuryColors.border}`,
+                            color: luxuryColors.textPrimary,
+                            focusRing: luxuryColors.accentGold,
+                        }}
                     />
                 </div>
             </div>
 
             {/* Products Table */}
-            <div className="bg-white dark:bg-zinc-950 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden">
+            <div className="rounded-xl shadow-sm overflow-hidden" style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}>
                 {loading ? (
                     <div className="flex justify-center items-center h-64">
-                        <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
+                        <Loader2 className="w-8 h-8 animate-spin" style={{ color: luxuryColors.accentGold }} />
                     </div>
                 ) : filteredProducts.length === 0 ? (
-                    <div className="p-12 text-center text-gray-500 dark:text-gray-400">
+                    <div className="p-8 sm:p-12 text-center" style={{ color: luxuryColors.textSecondary }}>
                         No products found. Add your first one!
                     </div>
                 ) : (
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left text-sm">
-                            <thead className="bg-gray-50 dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800">
+                        <table className="w-full text-left text-xs sm:text-sm">
+                            <thead style={{ backgroundColor: `${luxuryColors.border}20`, borderBottom: `1px solid ${luxuryColors.border}` }}>
                                 <tr>
-                                    <th className="px-6 py-3 font-medium text-gray-500 dark:text-gray-400">Product</th>
-                                    <th className="px-6 py-3 font-medium text-gray-500 dark:text-gray-400">Category</th>
-                                    <th className="px-6 py-3 font-medium text-gray-500 dark:text-gray-400">Price</th>
-                                    <th className="px-6 py-3 font-medium text-gray-500 dark:text-gray-400 text-right">Actions</th>
+                                    <th className="px-3 sm:px-6 py-3 font-medium" style={{ color: luxuryColors.textSecondary }}>Product</th>
+                                    <th className="px-3 sm:px-6 py-3 font-medium" style={{ color: luxuryColors.textSecondary }}>Category</th>
+                                    <th className="px-3 sm:px-6 py-3 font-medium" style={{ color: luxuryColors.textSecondary }}>Price</th>
+                                    <th className="px-3 sm:px-6 py-3 font-medium text-right" style={{ color: luxuryColors.textSecondary }}>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-200 dark:divide-zinc-800">
-                                {filteredProducts.map((product) => (
-                                    <tr key={product.id} className="hover:bg-gray-50 dark:hover:bg-zinc-900/50 transition-colors">
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-md bg-gray-100 dark:bg-zinc-800 overflow-hidden shrink-0">
+                            <tbody style={{ borderColor: luxuryColors.border }}>
+                                {filteredProducts.map((product, index) => (
+                                    <tr
+                                        key={product.id}
+                                        className="transition-colors hover:shadow-sm"
+                                        style={{
+                                            borderBottom: `1px solid ${luxuryColors.border}`,
+                                            backgroundColor: index % 2 === 0 ? 'transparent' : `${luxuryColors.border}08`
+                                        }}
+                                    >
+                                        <td className="px-3 sm:px-6 py-4">
+                                            <div className="flex items-center gap-2 sm:gap-3">
+                                                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-md overflow-hidden flex-shrink-0" style={{ backgroundColor: luxuryColors.border }}>
                                                     {product.image_url && (
                                                         <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
                                                     )}
                                                 </div>
-                                                <span className="font-medium">{product.name}</span>
+                                                <span className="font-medium truncate" style={{ color: luxuryColors.textPrimary }}>{product.name}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-gray-500 dark:text-gray-400">{product.category}</td>
-                                        <td className="px-6 py-4 font-medium">${product.price}</td>
-                                        <td className="px-6 py-4 text-right">
-                                            <div className="flex items-center justify-end gap-2">
+                                        <td className="px-3 sm:px-6 py-4" style={{ color: luxuryColors.textSecondary }}>{product.category}</td>
+                                        <td className="px-3 sm:px-6 py-4 font-medium" style={{ color: luxuryColors.textPrimary }}>${product.price}</td>
+                                        <td className="px-3 sm:px-6 py-4 text-right">
+                                            <div className="flex items-center justify-end gap-1 sm:gap-2">
                                                 <Link
-                                                    href={`/admin/products/edit/${product.id}`} // We'll create this later if needed, assume ID is routed
-                                                    className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                    href={`/admin/products/edit/${product.id}`}
+                                                    className="p-1.5 sm:p-2 rounded-lg transition-all hover:shadow-sm"
+                                                    style={{ color: luxuryColors.accentGold, backgroundColor: `${luxuryColors.accentGold}10` }}
                                                 >
                                                     <Pencil className="w-4 h-4" />
                                                 </Link>
                                                 <button
                                                     onClick={() => handleDelete(product.id, product.name)}
-                                                    className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                    className="p-1.5 sm:p-2 rounded-lg transition-all hover:shadow-sm"
+                                                    style={{ color: luxuryColors.error, backgroundColor: `${luxuryColors.error}10` }}
                                                 >
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>

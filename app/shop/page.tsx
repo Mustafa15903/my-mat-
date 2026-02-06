@@ -19,10 +19,26 @@ export default function ShopPage() {
     }));
 
     return (
-        <main className="min-h-screen bg-neutral-50" style={{ backgroundColor: luxuryColors.bgLight }}>
-            <div className="pt-20">
-                <div className="text-center py-12">
-                    <h1 className="text-4xl font-light tracking-wide mb-4" style={{ color: luxuryColors.textPrimary }}>
+        <main
+            className="relative min-h-screen overflow-hidden scroll-smooth"
+            style={{ backgroundColor: luxuryColors.bgLight }}
+        >
+            {/* Stamp pattern overlay — transparent, above content, non-blocking */}
+            <div
+                className="pointer-events-none absolute inset-0 z-10 opacity-[0.07]"
+                style={{
+                    backgroundImage: "url('/stamp-collection.svg')",
+                    backgroundRepeat: 'repeat',
+                    backgroundSize: '88px 122px',
+                }}
+                aria-hidden
+            />
+            <div className="relative z-0 pt-24 pb-20">
+                <div className="text-center py-10 md:py-14">
+                    <h1
+                        className="text-4xl font-light tracking-wide mb-3 transition-colors duration-300"
+                        style={{ color: luxuryColors.textPrimary }}
+                    >
                         Shop All
                     </h1>
                 </div>

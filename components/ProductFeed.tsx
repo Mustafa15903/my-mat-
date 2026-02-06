@@ -122,39 +122,47 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
       </div>
 
       {/* Single Product View Container */}
-      <div
-        ref={containerRef}
-        className="w-full max-w-2xl overflow-x-auto overflow-y-hidden scrollbar-hide flex-1 flex items-center"
-        role="group"
-        aria-label="Products Collection"
-        style={{
-          scrollSnapType: 'x mandatory',
-          scrollBehavior: 'smooth',
-          WebkitOverflowScrolling: 'touch',
-          overscrollBehaviorX: 'contain',
-        }}
-      >
-        <div className="flex gap-16 md:gap-24 w-max px-8 mx-auto">
-          {products.map((product, index) => (
-            <div
-              key={product.id}
-              className="flex-shrink-0 w-[80vw] sm:w-[60vw] md:w-[450px] lg:w-[500px]"
-              data-product-index={index}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${index + 1} of ${products.length}`}
-              style={{
-                scrollSnapAlign: 'center',
-                scrollSnapStop: 'always',
-              }}
-            >
-              <ProductCard
-                product={product}
-                onAddToCart={handleAddToCart}
-                index={index}
-              />
-            </div>
-          ))}
+      <div className="relative w-full max-w-4xl px-4 flex-1 flex flex-col justify-center overflow-hidden">
+        <div
+          ref={containerRef}
+          className="w-full overflow-x-auto overflow-y-hidden scrollbar-hide flex-1 flex items-center"
+          role="group"
+          aria-label="Products Collection"
+          style={{
+            scrollSnapType: 'x mandatory',
+            scrollBehavior: 'smooth',
+            WebkitOverflowScrolling: 'touch',
+            overscrollBehaviorX: 'contain',
+          }}
+        >
+          <div className="flex gap-16 md:gap-32 w-max px-[20vw] md:px-[30vw]">
+            {products.map((product, index) => {
+              const isFocused = centeredIndex === index;
+              return (
+                <div
+                  key={product.id}
+                  className="flex-shrink-0 w-[75vw] sm:w-[50vw] md:w-[450px] lg:w-[500px] transition-all duration-700 cubic-bezier(0.2, 0.8, 0.2, 1)"
+                  data-product-index={index}
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${index + 1} of ${products.length}`}
+                  style={{
+                    scrollSnapAlign: 'center',
+                    scrollSnapStop: 'always',
+                    opacity: isFocused ? 1 : 0.5,
+                    transform: isFocused ? 'scale(1)' : 'scale(0.95)',
+                    filter: isFocused ? 'none' : 'none',
+                  }}
+                >
+                  <ProductCard
+                    product={product}
+                    onAddToCart={handleAddToCart}
+                    index={index}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 

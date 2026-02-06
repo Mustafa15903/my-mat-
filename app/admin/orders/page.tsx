@@ -92,7 +92,55 @@ export default function OrdersPage() {
                         <p className="text-xs sm:text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Wait for customers to make a purchase.</p>
                     </div>
                 ) : (
-                    <div className="overflow-x-auto">
+                    <>
+                        {/* Mobile Card View (hidden on sm and up) */}
+                        <div className="grid grid-cols-1 sm:hidden">
+                            {filteredOrders.map((order, index) => {
+                                const statusColor = getStatusColor(order.status);
+                                return (
+                                    <div
+                                        key={order.id}
+                                        className="p-4 space-y-4 border-b last:border-b-0"
+                                        style={{ backgroundColor: luxuryColors.bgLight, borderColor: luxuryColors.border }}
+                                    >
+                                        <div className="flex items-start justify-between">
+                                            <div>
+                                                <p className="text-xs font-mono" style={{ color: luxuryColors.textSecondary }}>Order #{order.id}</p>
+                                                <p className="text-sm font-bold mt-1" style={{ color: luxuryColors.textPrimary }}>{order.customer_name || 'Guest'}</p>
+                                                <p className="text-xs" style={{ color: luxuryColors.textSecondary }}>{order.customer_email}</p>
+                                            </div>
+                                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium capitalize" style={{ backgroundColor: statusColor.bg, color: statusColor.text }}>
+                                                {order.status}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-between pt-2 border-t" style={{ borderColor: luxuryColors.border }}>
+                                            <div>
+                                                <p className="text-xs" style={{ color: luxuryColors.textSecondary }}>Date</p>
+                                                <p className="text-sm font-medium" style={{ color: luxuryColors.textPrimary }}>{new Date(order.created_at).toLocaleDateString()}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-xs" style={{ color: luxuryColors.textSecondary }}>Total</p>
+                                                <p className="text-sm font-bold" style={{ color: luxuryColors.textPrimary }}>${order.total_amount?.toFixed(2)}</p>
+                                            </div>
+                                            <Link
+                                                href={`/admin/orders/${order.id}`}
+                                                className="inline-flex items-center justify-center p-2 rounded-lg transition-all hover:shadow-sm"
+                                                style={{
+                                                    color: luxuryColors.accentGold,
+                                                    backgroundColor: `${luxuryColors.accentGold}10`
+                                                }}
+                                            >
+                                                <Eye className="w-4 h-4" />
+                                                <span className="sr-only">View Details</span>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {/* Desktop Table View (hidden on mobile) */}
+                        <div className="hidden sm:block overflow-x-auto">
                         <table className="w-full text-left text-xs sm:text-sm">
                             <thead style={{ backgroundColor: `${luxuryColors.border}20`, borderBottom: `1px solid ${luxuryColors.border}` }}>
                                 <tr>
@@ -155,7 +203,8 @@ export default function OrdersPage() {
                                 })}
                             </tbody>
                         </table>
-                    </div>
+                        </div>
+                    </>
                 )}
             </div>
         </div>

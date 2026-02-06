@@ -66,7 +66,7 @@ export default function ProductsPage() {
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-4 sm:px-0">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Products</h1>
                     <p className="text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Manage your product catalog</p>
@@ -82,7 +82,7 @@ export default function ProductsPage() {
             </div>
 
             {/* Search and Filter */}
-            <div className="p-3 sm:p-4 sm:rounded-xl border-y sm:border" style={{ backgroundColor: luxuryColors.bgLight, borderColor: luxuryColors.border }}>
+            <div className="p-3 sm:p-4 rounded-xl shadow-sm border" style={{ backgroundColor: luxuryColors.bgLight, borderColor: luxuryColors.border }}>
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: luxuryColors.textSecondary }} />
                     <input
@@ -106,7 +106,7 @@ export default function ProductsPage() {
                     <Loader2 className="w-8 h-8 animate-spin" style={{ color: luxuryColors.accentGold }} />
                 </div>
             ) : filteredProducts.length === 0 ? (
-                <div className="p-12 text-center sm:rounded-xl border-y sm:border" style={{ backgroundColor: luxuryColors.bgLight, borderColor: luxuryColors.border, color: luxuryColors.textSecondary }}>
+                <div className="p-8 sm:p-12 text-center rounded-xl shadow-sm border" style={{ backgroundColor: luxuryColors.bgLight, borderColor: luxuryColors.border, color: luxuryColors.textSecondary }}>
                     No products found. Add your first one!
                 </div>
             ) : (

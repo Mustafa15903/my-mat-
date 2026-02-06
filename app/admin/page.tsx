@@ -50,8 +50,8 @@ export default function AdminPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Dashboard Overview</h1>
-        <p className="text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Welcome to your product management dashboard.</p>
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Dashboard Overview</h1>
+        <p className="text-xs sm:text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Welcome to your product management dashboard.</p>
       </div>
 
       {loading ? (
@@ -65,18 +65,18 @@ export default function AdminPage() {
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
           {/* Products */}
           <div
             className="p-5 md:p-6 rounded-xl shadow-sm relative overflow-hidden transition-all hover:shadow-md"
             style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}
           >
             <div className="absolute top-0 right-0 p-4 opacity-5">
-              <ShoppingBag className="w-24 h-24" style={{ color: luxuryColors.textPrimary }} />
+              <ShoppingBag className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24" style={{ color: luxuryColors.textPrimary }} />
             </div>
             <div className="relative z-10">
               <h3 className="text-xs md:text-sm font-medium" style={{ color: luxuryColors.textSecondary }}>Total Products</h3>
-              <p className="text-3xl md:text-4xl font-bold mt-3" style={{ color: luxuryColors.textPrimary }}>{stats.products}</p>
+              <p className="text-2xl md:text-3xl font-bold mt-3" style={{ color: luxuryColors.textPrimary }}>{stats.products}</p>
               <div className="mt-4 flex items-center text-xs md:text-sm" style={{ color: luxuryColors.success }}>
                 <TrendingUp className="w-4 h-4 mr-1" />
                 <span>Active in catalog</span>
@@ -90,11 +90,11 @@ export default function AdminPage() {
             style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}
           >
             <div className="absolute top-0 right-0 p-4 opacity-5">
-              <FolderTree className="w-24 h-24" style={{ color: luxuryColors.textPrimary }} />
+              <FolderTree className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24" style={{ color: luxuryColors.textPrimary }} />
             </div>
             <div className="relative z-10">
               <h3 className="text-xs md:text-sm font-medium" style={{ color: luxuryColors.textSecondary }}>Total Categories</h3>
-              <p className="text-3xl md:text-4xl font-bold mt-3" style={{ color: luxuryColors.textPrimary }}>{stats.categories}</p>
+              <p className="text-2xl md:text-3xl font-bold mt-3" style={{ color: luxuryColors.textPrimary }}>{stats.categories}</p>
               <div className="mt-4 flex items-center text-xs md:text-sm" style={{ color: luxuryColors.accentGold }}>
                 <TrendingUp className="w-4 h-4 mr-1" />
                 <span>Organized collections</span>
@@ -108,11 +108,11 @@ export default function AdminPage() {
             style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}
           >
             <div className="absolute top-0 right-0 p-4 opacity-5">
-              <Package className="w-24 h-24" style={{ color: luxuryColors.textPrimary }} />
+              <Package className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24" style={{ color: luxuryColors.textPrimary }} />
             </div>
             <div className="relative z-10">
               <h3 className="text-xs md:text-sm font-medium" style={{ color: luxuryColors.textSecondary }}>Total Orders</h3>
-              <p className="text-3xl md:text-4xl font-bold mt-3" style={{ color: luxuryColors.textPrimary }}>{stats.orders}</p>
+              <p className="text-2xl md:text-3xl font-bold mt-3" style={{ color: luxuryColors.textPrimary }}>{stats.orders}</p>
               <div className="mt-4 flex items-center text-xs md:text-sm" style={{ color: luxuryColors.accentGreen }}>
                 <TrendingUp className="w-4 h-4 mr-1" />
                 <span>Lifetime volume</span>

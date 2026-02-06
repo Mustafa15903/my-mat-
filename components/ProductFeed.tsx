@@ -90,7 +90,10 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
   return (
     <section
       id="products"
-      className="w-full min-h-[100dvh] flex flex-col items-center justify-center px-4 md:px-8 pt-20"
+      className="w-full min-h-[100dvh] flex flex-col items-center pt-20 pb-20"
+      style={{
+        maxWidth: '100vw',
+      }}
       role="region"
       aria-roledescription="carousel"
       aria-label="Product Showcase"
@@ -102,9 +105,10 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
 
       {/* Section Title */}
       <div
-        className="mb-8 text-center"
+        className="mb-8 text-center px-4"
         style={{
           animation: 'titleFadeIn 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) backwards',
+          maxWidth: '100vw',
         }}
       >
         <h1
@@ -121,37 +125,42 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
         </p>
       </div>
 
-      {/* Single Product View Container */}
-      <div className="relative w-full max-w-4xl px-4 flex-1 flex flex-col justify-center overflow-hidden">
-        <div
-          ref={containerRef}
-          className="w-full overflow-x-auto overflow-y-hidden scrollbar-hide flex-1 flex items-center"
-          role="group"
-          aria-label="Products Collection"
-          style={{
-            scrollSnapType: 'x mandatory',
-            scrollBehavior: 'smooth',
-            WebkitOverflowScrolling: 'touch',
-            overscrollBehaviorX: 'contain',
-          }}
-        >
-          <div className="flex gap-16 md:gap-32 w-max px-[20vw] md:px-[30vw]">
+      {/* Carousel/Grid Container */}
+      <div
+        className="w-full px-4 md:px-8 lg:px-12"
+        style={{
+          maxWidth: '100vw',
+        }}
+      >
+        {/* Mobile Carousel View */}
+        <div className="block lg:hidden">
+          <div
+            ref={containerRef}
+            className="horizontal-scroll flex items-center gap-6 pb-8"
+            role="group"
+            aria-label="Products Carousel"
+            style={{
+              scrollSnapType: 'x mandatory',
+              scrollBehavior: 'smooth',
+              WebkitOverflowScrolling: 'touch',
+              paddingLeft: 'calc(50vw - 160px)', // Centers the first item (assuming ~320px width)
+              paddingRight: 'calc(50vw - 160px)', // Centers the last item
+            }}
+          >
             {products.map((product, index) => {
               const isFocused = centeredIndex === index;
               return (
                 <div
                   key={product.id}
-                  className="flex-shrink-0 w-[75vw] sm:w-[50vw] md:w-[450px] lg:w-[500px] transition-all duration-700 cubic-bezier(0.2, 0.8, 0.2, 1)"
+                  className="flex-shrink-0 scroll-snap-center transition-all duration-700"
                   data-product-index={index}
                   role="group"
                   aria-roledescription="slide"
                   aria-label={`${index + 1} of ${products.length}`}
                   style={{
-                    scrollSnapAlign: 'center',
-                    scrollSnapStop: 'always',
-                    opacity: isFocused ? 1 : 0.5,
+                    width: '320px',
+                    opacity: isFocused ? 1 : 0.6,
                     transform: isFocused ? 'scale(1)' : 'scale(0.95)',
-                    filter: isFocused ? 'none' : 'none',
                   }}
                 >
                   <ProductCard
@@ -163,36 +172,39 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
               );
             })}
           </div>
-        </div>
-      </div>
 
-      {/* Pagination Dots */}
-      <div className="mt-8 mb-12 text-center" role="tablist" aria-label="Slides">
-        <div className="flex gap-2 justify-center">
-          {products.map((product, index) => (
-            <button
-              key={index}
-              onClick={() => scrollToIndex(index)}
-              className="group relative flex items-center justify-center w-11 h-11 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-full"
-              role="tab"
-              aria-selected={centeredIndex === index}
-              aria-label={`Go to product ${index + 1}: ${product.name}`}
-              style={{
-                // @ts-ignore
-                '--tw-ring-color': luxuryColors.accentGold,
-              }}
-            >
-              <div
-                className="w-2 h-2 rounded-full transition-all duration-300 group-hover:scale-125 group-active:scale-150"
+          {/* Mobile Pagination Dots */}
+          <div className="mt-4 flex gap-2 justify-center" role="tablist" aria-label="Slides">
+            {products.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToIndex(index)}
+                className="w-2 h-2 rounded-full transition-all duration-300"
+                role="tab"
+                aria-selected={centeredIndex === index}
                 style={{
                   backgroundColor: centeredIndex === index ? luxuryColors.accentGold : luxuryColors.border,
                   transform: centeredIndex === index ? 'scale(1.5)' : 'scale(1)',
                 }}
               />
-            </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Grid View */}
+        <div className="hidden lg:grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
+          {products.map((product, index) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onAddToCart={handleAddToCart}
+              index={index}
+            />
           ))}
         </div>
       </div>
+
+
 
       <style jsx>{`
         @keyframes titleFadeIn {

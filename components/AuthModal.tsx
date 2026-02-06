@@ -60,8 +60,13 @@ export default function AuthModal({ isOpen, onClose, onSubmit }: AuthModalProps)
       {/* Modal */}
       <div
         ref={modalRef}
-        className="fixed top-1/2 left-1/2 z-50 w-96 -translate-x-1/2 -translate-y-1/2 rounded-lg p-8"
-        style={{ backgroundColor: luxuryColors.bgLight }}
+        className="fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 rounded-lg"
+        style={{ 
+          backgroundColor: luxuryColors.bgLight,
+          width: 'min(90vw, 400px)',
+          maxWidth: '90vw',
+          padding: 'clamp(1.5rem, 4vw, 2rem)',
+        }}
       >
         <button
           onClick={onClose}

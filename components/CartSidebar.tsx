@@ -182,11 +182,14 @@ export default function CartSidebar({
         onClick={onClose}
       />
 
-      {/* Sidebar Drawer */}
       <aside
         ref={sidebarRef}
-        className="fixed right-0 top-0 w-full sm:w-[450px] h-[100dvh] z-[51] flex flex-col shadow-2xl transform translate-x-full"
-        style={{ backgroundColor: luxuryColors.bgLight }}
+        className="fixed right-0 top-0 h-[100dvh] z-[51] flex flex-col shadow-2xl transform translate-x-full"
+        style={{
+          backgroundColor: luxuryColors.bgLight,
+          width: 'min(400px, 100vw)',
+          maxWidth: '100vw',
+        }}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-8 py-6 border-b" style={{ borderColor: luxuryColors.border }}>
@@ -250,13 +253,14 @@ export default function CartSidebar({
                     <div>
                       <div className="flex justify-between items-start gap-2">
                         <h4
-                          className="font-medium text-base mb-1"
+                          className="font-medium text-base mb-1 truncate flex-1"
                           style={{ color: luxuryColors.textPrimary }}
+                          title={item.name}
                         >
                           {item.name}
                         </h4>
                         <p
-                          className="text-sm font-medium"
+                          className="text-sm font-medium whitespace-nowrap"
                           style={{ color: luxuryColors.textPrimary }}
                         >
                           ${(item.price * item.quantity).toFixed(2)}
@@ -270,36 +274,36 @@ export default function CartSidebar({
                       </p>
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between mt-2">
                       <div className="flex items-center border rounded-md" style={{ borderColor: luxuryColors.border }}>
                         <button
                           onClick={() => onUpdateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                          className="p-1.5 hover:bg-black/5 transition-colors"
+                          className="p-2 sm:p-1.5 hover:bg-black/5 transition-colors"
                           style={{ color: luxuryColors.textSecondary }}
                         >
-                          <Minus size={14} />
+                          <Minus size={16} />
                         </button>
                         <span
-                          className="text-sm w-8 text-center font-medium"
+                          className="text-sm w-10 sm:w-8 text-center font-medium"
                           style={{ color: luxuryColors.textPrimary }}
                         >
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                          className="p-1.5 hover:bg-black/5 transition-colors"
+                          className="p-2 sm:p-1.5 hover:bg-black/5 transition-colors"
                           style={{ color: luxuryColors.textSecondary }}
                         >
-                          <Plus size={14} />
+                          <Plus size={16} />
                         </button>
                       </div>
 
                       <button
                         onClick={() => onRemove(item.id)}
-                        className="text-xs flex items-center gap-1 hover:text-red-500 transition-colors"
+                        className="text-xs p-2 -mr-2 flex items-center gap-1 hover:text-red-500 transition-colors"
                         style={{ color: luxuryColors.textSecondary }}
                       >
-                        <Trash2 size={14} />
+                        <Trash2 size={16} />
                         <span className="sr-only sm:not-sr-only sm:inline-block">Remove</span>
                       </button>
                     </div>

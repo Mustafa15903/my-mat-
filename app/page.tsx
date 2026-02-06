@@ -88,8 +88,12 @@ export default function Page() {
 
   return (
     <div
-      className="min-h-screen relative"
-      style={{ backgroundColor: luxuryColors.bgLight }}
+      className="min-h-screen relative w-full"
+      style={{ 
+        backgroundColor: luxuryColors.bgLight,
+        maxWidth: '100vw',
+        overflowX: 'hidden',
+      }}
     >
       {/* Navbar */}
       <Navbar
@@ -99,7 +103,14 @@ export default function Page() {
       />
 
       {/* Main Content */}
-      <main className="min-h-screen flex flex-col justify-center pt-24">
+      <main 
+        className="min-h-screen flex flex-col justify-center pt-24"
+        style={{ 
+          width: '100%',
+          maxWidth: '100vw',
+          overflowX: 'hidden',
+        }}
+      >
         {loading ? (
           <div className="flex h-[50vh] items-center justify-center">
             <Loader2 className="w-10 h-10 text-gray-400 animate-spin" />

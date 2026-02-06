@@ -49,7 +49,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Mobile Header */}
       <div
-        className="md:hidden fixed top-0 left-0 right-0 z-50 p-3 sm:p-4 flex items-center justify-between shadow-sm"
+        className="md:hidden fixed top-0 left-0 right-0 z-[60] p-3 sm:p-4 flex items-center justify-between shadow-sm"
         style={{ backgroundColor: luxuryColors.bgLight, borderBottom: `1px solid ${luxuryColors.border}` }}
       >
         <h1 className="text-base sm:text-lg font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Admin Panel</h1>
@@ -65,14 +65,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <div
-          className="md:hidden fixed inset-0 bg-black/40 z-40 backdrop-blur-sm"
+          className="md:hidden fixed inset-0 bg-black/40 z-[55] backdrop-blur-sm"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed md:sticky top-0 h-screen w-64 flex flex-col z-50 transition-transform duration-300 transform shadow-lg
+        className={`fixed md:sticky top-0 h-[100dvh] w-64 flex flex-col z-50 transition-transform duration-300 transform shadow-lg
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 pt-16 md:pt-0`
         }
         style={{ backgroundColor: luxuryColors.bgLight, borderRight: `1px solid ${luxuryColors.border}` }}

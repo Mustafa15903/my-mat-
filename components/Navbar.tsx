@@ -49,9 +49,14 @@ export default function Navbar({ cartCount, onAccountClick, onCartClick }: Navba
         style={{
           backgroundColor: 'rgba(250, 248, 246, 0)',
           backdropFilter: 'blur(0px)',
+          width: '100%',
+          maxWidth: '100vw',
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6 flex items-center justify-between">
+        <div 
+          className="max-w-7xl mx-auto px-4 sm:px-8 py-6 flex items-center justify-between"
+          style={{ maxWidth: '100vw' }}
+        >
           {/* Brand */}
           <div className="flex-1">
             <h1

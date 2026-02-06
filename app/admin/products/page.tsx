@@ -66,7 +66,7 @@ export default function ProductsPage() {
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-4 sm:px-0">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Products</h1>
                     <p className="text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Manage your product catalog</p>
@@ -82,7 +82,7 @@ export default function ProductsPage() {
             </div>
 
             {/* Search and Filter */}
-            <div className="p-3 sm:p-4 rounded-xl" style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}>
+            <div className="p-3 sm:p-4 sm:rounded-xl border-y sm:border" style={{ backgroundColor: luxuryColors.bgLight, borderColor: luxuryColors.border }}>
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: luxuryColors.textSecondary }} />
                     <input
@@ -106,18 +106,18 @@ export default function ProductsPage() {
                     <Loader2 className="w-8 h-8 animate-spin" style={{ color: luxuryColors.accentGold }} />
                 </div>
             ) : filteredProducts.length === 0 ? (
-                <div className="p-12 text-center rounded-xl" style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}`, color: luxuryColors.textSecondary }}>
+                <div className="p-12 text-center sm:rounded-xl border-y sm:border" style={{ backgroundColor: luxuryColors.bgLight, borderColor: luxuryColors.border, color: luxuryColors.textSecondary }}>
                     No products found. Add your first one!
                 </div>
             ) : (
                 <>
                     {/* Mobile Card View (hidden on sm and up) */}
-                    <div className="grid grid-cols-1 gap-4 sm:hidden">
-                        {filteredProducts.map((product) => (
+                    <div className="grid grid-cols-1 sm:hidden">
+                        {filteredProducts.map((product, index) => (
                             <div
                                 key={product.id}
-                                className="p-4 rounded-xl shadow-sm space-y-4"
-                                style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}
+                                className="p-4 space-y-4 border-b last:border-b-0"
+                                style={{ backgroundColor: luxuryColors.bgLight, borderColor: luxuryColors.border }}
                             >
                                 <div className="flex items-center gap-4">
                                     <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0" style={{ backgroundColor: luxuryColors.border }}>

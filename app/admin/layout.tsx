@@ -72,7 +72,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Sidebar */}
       <aside
-        className={`fixed md:sticky top-0 h-[100dvh] w-64 flex flex-col z-50 transition-transform duration-300 transform shadow-lg
+        className={`fixed md:sticky top-0 h-[100dvh] w-56 md:w-56 lg:w-64 flex flex-col z-50 transition-transform duration-300 transform shadow-lg
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 pt-16 md:pt-0`
         }
         style={{ backgroundColor: luxuryColors.bgLight, borderRight: `1px solid ${luxuryColors.border}` }}

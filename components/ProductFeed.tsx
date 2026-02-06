@@ -20,11 +20,38 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
     } else {
       addToCart(product);
       // Optional: Add a simple alert or toast here if global toast is not available
-      // alert(`Added ${product.name} to cart`); 
+      // alert(`Added ${product.name} to cart`);
     }
   };
   const containerRef = useRef<HTMLDivElement>(null);
   const [centeredIndex, setCenteredIndex] = useState(0);
+  const [carouselItemWidth, setCarouselItemWidth] = useState(320);
+
+  // Calculate responsive carousel item width
+  useEffect(() => {
+    const calculateWidth = () => {
+      if (typeof window !== 'undefined') {
+        const vw = window.innerWidth;
+        if (vw < 360) {
+          // Extra small screens: 320px device leaves ~16px margin each side
+          setCarouselItemWidth(Math.min(vw - 32, 280));
+        } else if (vw < 640) {
+          // Mobile: 300px
+          setCarouselItemWidth(300);
+        } else if (vw < 1024) {
+          // Tablet: 320px
+          setCarouselItemWidth(320);
+        } else {
+          // Desktop: 360px
+          setCarouselItemWidth(360);
+        }
+      }
+    };
+
+    calculateWidth();
+    window.addEventListener('resize', calculateWidth);
+    return () => window.removeEventListener('resize', calculateWidth);
+  }, []);
 
   const scrollToIndex = useCallback((index: number) => {
     if (containerRef.current) {
@@ -143,8 +170,8 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
               scrollSnapType: 'x mandatory',
               scrollBehavior: 'smooth',
               WebkitOverflowScrolling: 'touch',
-              paddingLeft: 'calc(50vw - 160px)', // Centers the first item (assuming ~320px width)
-              paddingRight: 'calc(50vw - 160px)', // Centers the last item
+              paddingLeft: `calc(50vw - ${carouselItemWidth / 2}px)`,
+              paddingRight: `calc(50vw - ${carouselItemWidth / 2}px)`,
             }}
           >
             {products.map((product, index) => {
@@ -158,7 +185,7 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
                   aria-roledescription="slide"
                   aria-label={`${index + 1} of ${products.length}`}
                   style={{
-                    width: '320px',
+                    width: `${carouselItemWidth}px`,
                     opacity: isFocused ? 1 : 0.6,
                     transform: isFocused ? 'scale(1)' : 'scale(0.95)',
                   }}

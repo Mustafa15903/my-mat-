@@ -82,7 +82,7 @@ export default function Navbar({ cartCount, onAccountClick, onCartClick }: Navba
           </div>
 
           {/* Account & Cart & Mobile Menu Toggle */}
-          <div className="flex-1 flex justify-end items-center gap-6 sm:gap-8">
+          <div className="flex-1 flex justify-end items-center gap-4 sm:gap-6 md:gap-8">
             <button
               onClick={onAccountClick}
               className="hidden sm:flex text-sm tracking-wide hover:opacity-60 transition-opacity duration-300 items-center gap-2"

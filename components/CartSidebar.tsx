@@ -192,7 +192,7 @@ export default function CartSidebar({
         }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-8 py-6 border-b" style={{ borderColor: luxuryColors.border }}>
+        <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 border-b" style={{ borderColor: luxuryColors.border }}>
           <h2
             className="text-xl font-light tracking-wide"
             style={{ color: luxuryColors.textPrimary }}
@@ -208,7 +208,7 @@ export default function CartSidebar({
         </div>
 
         {/* Cart Items Scroll Area */}
-        <div className="flex-1 overflow-y-auto px-8 py-6">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6">
           <div
             ref={itemsRef}
             className="space-y-6"
@@ -241,7 +241,7 @@ export default function CartSidebar({
                   key={item.id}
                   className="flex gap-4 group"
                 >
-                  <div className="w-24 h-32 flex-shrink-0 bg-gray-100 relative overflow-hidden rounded-sm">
+                  <div className="w-20 h-28 sm:w-24 sm:h-32 flex-shrink-0 bg-gray-100 relative overflow-hidden rounded-sm">
                     <img
                       src={item.image}
                       alt={item.name}
@@ -316,7 +316,7 @@ export default function CartSidebar({
 
         {/* Footer Summary */}
         {items.length > 0 && (
-          <div className="px-8 py-6 border-t bg-white/50 backdrop-blur-sm" style={{ borderColor: luxuryColors.border }}>
+          <div className="px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 border-t bg-white/50 backdrop-blur-sm" style={{ borderColor: luxuryColors.border }}>
             <div className="space-y-3 mb-6">
               <div className="flex justify-between text-sm">
                 <span style={{ color: luxuryColors.textSecondary }}>Subtotal</span>

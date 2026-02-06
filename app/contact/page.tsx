@@ -14,7 +14,7 @@ export default function ContactPage() {
             {/* Back Button */}
             <Link
                 href="/"
-                className="absolute top-8 left-8 p-3 rounded-full bg-white/80 backdrop-blur-md shadow-sm border border-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-md group"
+                className="absolute top-4 left-4 sm:top-6 sm:left-6 md:top-8 md:left-8 p-2 sm:p-3 rounded-full bg-white/80 backdrop-blur-md shadow-sm border border-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-md group"
                 aria-label="Back to Home"
             >
                 <ChevronLeft size={24} style={{ color: luxuryColors.textPrimary }} className="group-hover:-translate-x-0.5 transition-transform" />

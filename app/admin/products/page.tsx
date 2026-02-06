@@ -95,7 +95,6 @@ export default function ProductsPage() {
                             backgroundColor: luxuryColors.bgLight,
                             border: `1px solid ${luxuryColors.border}`,
                             color: luxuryColors.textPrimary,
-                            focusRing: luxuryColors.accentGold,
                         }}
                     />
                 </div>

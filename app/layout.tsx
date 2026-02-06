@@ -35,14 +35,17 @@ export default function RootLayout({
         }}
       >
         <CartProviderWrapper>
-          <div
-            className="fixed inset-0 z-[100] pointer-events-none opacity-[0.02] mix-blend-multiply"
-            style={{
-              backgroundImage: 'url(/stamp-collection.svg)',
-              backgroundRepeat: 'repeat',
-              backgroundSize: '100px 100px',
-            }}
-          />
+          <div className="fixed inset-0 w-full h-full overflow-hidden">
+  <div
+    className="absolute inset-0 z-[100] pointer-events-none opacity-[0.02] mix-blend-multiply"
+    style={{
+      backgroundImage: 'url(/stamp-collection.svg)',
+      backgroundRepeat: 'repeat',
+      backgroundSize: '100px 100px',
+      backgroundPosition: 'center',
+    }}
+  />
+</div>
           {children}
           <Toaster position="top-center" richColors />
         </CartProviderWrapper>

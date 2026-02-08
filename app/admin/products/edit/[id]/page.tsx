@@ -6,6 +6,7 @@ import { ArrowLeft, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { useParams } from 'next/navigation';
+import { luxuryColors } from '@/lib/theme';
 
 export default function EditProductPage() {
     const params = useParams();
@@ -45,27 +46,35 @@ export default function EditProductPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center h-64">
-                <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
+                <Loader2 className="w-8 h-8 animate-spin" style={{ color: luxuryColors.accentGold }} />
             </div>
         );
     }
 
     if (!product) {
-        return <div>Product not found</div>;
+        return (
+            <div className="text-center py-12">
+                <h2 className="text-lg font-semibold" style={{ color: luxuryColors.textPrimary }}>Product not found</h2>
+                <Link href="/admin/products" className="text-sm mt-2 inline-block" style={{ color: luxuryColors.accentGold }}>
+                    Return to Products
+                </Link>
+            </div>
+        );
     }
 
     return (
         <div className="space-y-6">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
                 <Link
                     href="/admin/products"
-                    className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors dark:text-gray-400 dark:hover:bg-zinc-800"
+                    className="p-2 -ml-2 rounded-lg transition-colors"
+                    style={{ color: luxuryColors.textSecondary }}
                 >
                     <ArrowLeft className="w-5 h-5" />
                 </Link>
-                <div>
-                    <h1 className="text-2xl font-bold tracking-tight">Edit Product</h1>
-                    <p className="text-gray-500 dark:text-gray-400">Update product details.</p>
+                <div className="min-w-0">
+                    <h1 className="text-xl sm:text-2xl font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Edit Product</h1>
+                    <p className="text-xs sm:text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Update product details.</p>
                 </div>
             </div>
 

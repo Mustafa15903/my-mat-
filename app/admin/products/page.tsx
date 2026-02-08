@@ -116,36 +116,36 @@ export default function ProductsPage() {
                         {filteredProducts.map((product, index) => (
                             <div
                                 key={product.id}
-                                className="p-4 space-y-4 border-b last:border-b-0"
+                                className="p-3 sm:p-4 space-y-3 border-b last:border-b-0"
                                 style={{ backgroundColor: luxuryColors.bgLight, borderColor: luxuryColors.border }}
                             >
-                                <div className="flex items-center gap-4">
-                                    <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0" style={{ backgroundColor: luxuryColors.border }}>
+                                <div className="flex items-start gap-3">
+                                    <div className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0" style={{ backgroundColor: luxuryColors.border }}>
                                         {product.image_url && (
                                             <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <h3 className="font-bold truncate" style={{ color: luxuryColors.textPrimary }}>{product.name}</h3>
+                                        <h3 className="font-bold truncate text-sm" style={{ color: luxuryColors.textPrimary }}>{product.name}</h3>
                                         <p className="text-xs" style={{ color: luxuryColors.textSecondary }}>{product.category}</p>
-                                        <p className="text-sm font-bold mt-1" style={{ color: luxuryColors.accentGold }}>${product.price}</p>
+                                        <p className="text-xs font-bold mt-1" style={{ color: luxuryColors.accentGold }}>${product.price}</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-2 pt-2 border-t" style={{ borderColor: luxuryColors.border }}>
                                     <Link
                                         href={`/admin/products/edit/${product.id}`}
-                                        className="flex-1 inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-medium transition-all"
+                                        className="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-lg text-xs font-medium transition-all"
                                         style={{ color: luxuryColors.accentGold, backgroundColor: `${luxuryColors.accentGold}10` }}
                                     >
-                                        <Pencil className="w-4 h-4 mr-2" />
+                                        <Pencil className="w-3 h-3 mr-1" />
                                         Edit
                                     </Link>
                                     <button
                                         onClick={() => handleDelete(product.id, product.name)}
-                                        className="flex-1 inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-medium transition-all"
+                                        className="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-lg text-xs font-medium transition-all"
                                         style={{ color: luxuryColors.error, backgroundColor: `${luxuryColors.error}10` }}
                                     >
-                                        <Trash2 className="w-4 h-4 mr-2" />
+                                        <Trash2 className="w-3 h-3 mr-1" />
                                         Delete
                                     </button>
                                 </div>

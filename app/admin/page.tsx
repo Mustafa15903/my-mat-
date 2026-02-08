@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { Package, ShoppingBag, FolderTree, TrendingUp, Loader2 } from 'lucide-react';
+import { Package, ShoppingBag, FolderTree, TrendingUp } from 'lucide-react';
 import OverviewChart from './components/OverviewChart';
 import { luxuryColors } from '@/lib/theme';
 
@@ -68,7 +68,7 @@ export default function AdminPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
           {/* Products */}
           <div
-            className="p-5 md:p-6 rounded-xl shadow-sm relative overflow-hidden transition-all hover:shadow-md"
+            className="p-5 md:p-6 rounded-xl shadow-sm relative overflow-hidden transition-all"
             style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}
           >
             <div className="absolute top-0 right-0 p-4 opacity-5">
@@ -86,7 +86,7 @@ export default function AdminPage() {
 
           {/* Categories */}
           <div
-            className="p-5 md:p-6 rounded-xl shadow-sm relative overflow-hidden transition-all hover:shadow-md"
+            className="p-5 md:p-6 rounded-xl shadow-sm relative overflow-hidden transition-all"
             style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}
           >
             <div className="absolute top-0 right-0 p-4 opacity-5">
@@ -104,7 +104,7 @@ export default function AdminPage() {
 
           {/* Orders */}
           <div
-            className="p-5 md:p-6 rounded-xl shadow-sm relative overflow-hidden transition-all hover:shadow-md"
+            className="p-5 md:p-6 rounded-xl shadow-sm relative overflow-hidden transition-all"
             style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}
           >
             <div className="absolute top-0 right-0 p-4 opacity-5">
@@ -134,7 +134,7 @@ export default function AdminPage() {
 
         {/* Recent Activity Widget */}
         <div
-          className="p-5 md:p-6 rounded-xl shadow-sm"
+          className="p-5 md:p-6 rounded-xl"
           style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}
         >
           <h3 className="text-base md:text-lg font-semibold mb-4" style={{ color: luxuryColors.textPrimary }}>Recent Activity</h3>

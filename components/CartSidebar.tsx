@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { X, Minus, Plus, Trash2 } from 'lucide-react';
 import { luxuryColors } from '@/lib/theme';
@@ -175,10 +176,10 @@ export default function CartSidebar({
 
   return (
     <>
-      {/* Backdrop Overlay */}
+      {/* Backdrop Overlay - إزالة backdrop-blur من الشاشات الصغيرة */}
       <div
         ref={overlayRef}
-        className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none"
+        className="fixed inset-0 z-50 bg-black/40  opacity-0 pointer-events-none"
         onClick={onClose}
       />
 
@@ -192,18 +193,19 @@ export default function CartSidebar({
         }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 border-b" style={{ borderColor: luxuryColors.border }}>
+        <div className="flex items-center justify-between px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-5 border-b flex-shrink-0" style={{ borderColor: luxuryColors.border }}>
           <h2
-            className="text-xl font-light tracking-wide"
+            className="text-base sm:text-lg font-light tracking-wide"
             style={{ color: luxuryColors.textPrimary }}
           >
-            Your Cart ({items.reduce((acc, item) => acc + item.quantity, 0)})
+            Cart ({items.reduce((acc, item) => acc + item.quantity, 0)})
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-black/5 rounded-full transition-colors"
+            className="p-1.5 hover:bg-black/5 rounded-lg transition-colors flex-shrink-0"
+            aria-label="Close cart"
           >
-            <X size={24} style={{ color: luxuryColors.textPrimary }} />
+            <X size={20} style={{ color: luxuryColors.textPrimary }} />
           </button>
         </div>
 
@@ -242,10 +244,11 @@ export default function CartSidebar({
                   className="flex gap-4 group"
                 >
                   <div className="w-20 h-28 sm:w-24 sm:h-32 flex-shrink-0 bg-gray-100 relative overflow-hidden rounded-sm">
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
 
@@ -314,9 +317,9 @@ export default function CartSidebar({
           </div>
         </div>
 
-        {/* Footer Summary */}
+        {/* Footer Summary - إزالة backdrop-blur من الشاشات الصغيرة */}
         {items.length > 0 && (
-          <div className="px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 border-t bg-white/50 backdrop-blur-sm" style={{ borderColor: luxuryColors.border }}>
+          <div className="px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 border-t bg-white/50 md:backdrop-blur-sm" style={{ borderColor: luxuryColors.border }}>
             <div className="space-y-3 mb-6">
               <div className="flex justify-between text-sm">
                 <span style={{ color: luxuryColors.textSecondary }}>Subtotal</span>
@@ -341,7 +344,7 @@ export default function CartSidebar({
             {!showCheckoutForm ? (
               <button
                 onClick={handleCheckoutClick}
-                className="w-full py-4 rounded-xl font-medium tracking-wide text-center transition-all duration-300 hover:opacity-90 active:scale-[0.98] shadow-lg"
+                className="w-full py-3 sm:py-4 rounded-xl font-medium tracking-wide text-center transition-all duration-300 hover:opacity-90 active:scale-[0.98] shadow-lg touch-manipulation"
                 style={{
                   backgroundColor: luxuryColors.textPrimary,
                   color: luxuryColors.bgLight,
@@ -351,16 +354,16 @@ export default function CartSidebar({
                 Proceed to Checkout
               </button>
             ) : (
-              <form onSubmit={handleCheckoutProcess} className="space-y-3">
+              <form onSubmit={handleCheckoutProcess} className="space-y-3 sm:space-y-4">
                 <div>
-                  <label className="block text-xs font-medium mb-1" style={{ color: luxuryColors.textSecondary }}>
+                  <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2" style={{ color: luxuryColors.textSecondary }}>
                     Full Name
                   </label>
                   <input
                     type="text"
                     value={customerInfo.name}
                     onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg text-sm outline-none focus:ring-2"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base outline-none focus:ring-2 touch-manipulation"
                     style={{
                       border: `1px solid ${luxuryColors.border}`,
                       color: luxuryColors.textPrimary
@@ -370,14 +373,14 @@ export default function CartSidebar({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium mb-1" style={{ color: luxuryColors.textSecondary }}>
+                  <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2" style={{ color: luxuryColors.textSecondary }}>
                     Email
                   </label>
                   <input
                     type="email"
                     value={customerInfo.email}
                     onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg text-sm outline-none focus:ring-2"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base outline-none focus:ring-2 touch-manipulation"
                     style={{
                       border: `1px solid ${luxuryColors.border}`,
                       color: luxuryColors.textPrimary
@@ -387,27 +390,27 @@ export default function CartSidebar({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium mb-1" style={{ color: luxuryColors.textSecondary }}>
+                  <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2" style={{ color: luxuryColors.textSecondary }}>
                     Shipping Address
                   </label>
                   <textarea
                     value={customerInfo.address}
                     onChange={(e) => setCustomerInfo({ ...customerInfo, address: e.target.value })}
-                    className="w-full px-3 py-2 rounded-lg text-sm outline-none focus:ring-2 resize-none"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base outline-none focus:ring-2 resize-none touch-manipulation"
                     style={{
                       border: `1px solid ${luxuryColors.border}`,
                       color: luxuryColors.textPrimary
                     }}
-                    placeholder="123 Main St, City, Country"
+                    placeholder="&apos;123 Main St, City, Country&apos;"
                     rows={2}
                     required
                   />
                 </div>
-                <div className="flex gap-2 pt-2">
+                <div className="flex gap-2 sm:gap-3 pt-2">
                   <button
                     type="button"
                     onClick={() => setShowCheckoutForm(false)}
-                    className="flex-1 py-3 rounded-lg font-medium text-sm transition-colors"
+                    className="flex-1 py-3 sm:py-3.5 rounded-lg font-medium text-sm sm:text-base transition-colors touch-manipulation"
                     style={{
                       border: `1px solid ${luxuryColors.border}`,
                       color: luxuryColors.textSecondary
@@ -418,7 +421,7 @@ export default function CartSidebar({
                   <button
                     type="submit"
                     disabled={checkingOut}
-                    className="flex-1 py-3 rounded-lg font-medium text-sm transition-all hover:opacity-90 disabled:opacity-50"
+                    className="flex-1 py-3 sm:py-3.5 rounded-lg font-medium text-sm sm:text-base transition-all hover:opacity-90 disabled:opacity-50 touch-manipulation"
                     style={{
                       backgroundColor: luxuryColors.accentGold,
                       color: luxuryColors.bgLight

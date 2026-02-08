@@ -53,10 +53,10 @@ export default React.memo(function ProductCard({ product, onAddToCart, index }: 
 
         {/* Title & Description */}
         <div className="space-y-1">
-          <h3 className="text-lg font-medium tracking-tight leading-snug" style={{ color: luxuryColors.textPrimary }}>
+          <h3 className="text-base sm:text-lg font-medium tracking-tight leading-snug line-clamp-2" style={{ color: luxuryColors.textPrimary }}>
             {product.name}
           </h3>
-          <p className="text-sm font-normal leading-relaxed line-clamp-2 min-h-[2.5em]" style={{ color: luxuryColors.textSecondary }}>
+          <p className="text-xs sm:text-sm font-normal leading-relaxed line-clamp-2" style={{ color: luxuryColors.textSecondary }}>
             {product.description}
           </p>
         </div>

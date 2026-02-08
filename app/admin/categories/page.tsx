@@ -159,14 +159,14 @@ export default function CategoriesPage() {
                     ) : (
                         <ul style={{ borderTop: `1px solid ${luxuryColors.border}` }}>
                             {filteredCategories.length === 0 ? (
-                                <li className="p-6 text-center text-sm" style={{ color: luxuryColors.textSecondary }}>
+                                <li className="p-4 sm:p-6 text-center text-xs sm:text-sm" style={{ color: luxuryColors.textSecondary }}>
                                     {searchTerm ? 'No categories found' : 'No categories yet'}
                                 </li>
                             ) : (
                                 filteredCategories.map((cat) => (
                                     <li
                                         key={cat.id}
-                                        className="p-3 sm:p-4 flex items-center justify-between hover:bg-black/5 transition-colors text-sm"
+                                        className="p-2.5 sm:p-3 md:p-4 flex items-center justify-between hover:bg-black/5 transition-colors text-xs sm:text-sm"
                                         style={{ borderBottom: `1px solid ${luxuryColors.border}` }}
                                     >
                                         {editingId === cat.id ? (
@@ -175,50 +175,50 @@ export default function CategoriesPage() {
                                                     type="text"
                                                     value={editingName}
                                                     onChange={(e) => setEditingName(e.target.value)}
-                                                    className="flex-1 px-2 py-1 rounded outline-none focus:ring-2 text-sm"
+                                                    className="flex-1 px-2 py-1 rounded outline-none focus:ring-2 text-xs sm:text-sm"
                                                     style={{
                                                         border: `1px solid ${luxuryColors.accentGold}`,
                                                         color: luxuryColors.textPrimary
                                                     }}
                                                     autoFocus
                                                 />
-                                                <div className="flex gap-2 ml-2 flex-shrink-0">
+                                                <div className="flex gap-1 sm:gap-2 ml-2 flex-shrink-0">
                                                     <button
                                                         onClick={() => handleSaveEdit(cat.id)}
-                                                        className="p-1.5 sm:p-2 rounded-lg transition-colors"
+                                                        className="p-1.5 rounded-lg transition-colors"
                                                         style={{ color: luxuryColors.success, backgroundColor: 'rgba(74, 222, 128, 0.1)' }}
                                                     >
-                                                        <Check className="w-4 h-4" />
+                                                        <Check className="w-3 h-3 sm:w-4 sm:h-4" />
                                                     </button>
                                                     <button
                                                         onClick={handleCancelEdit}
-                                                        className="p-1.5 sm:p-2 rounded-lg transition-colors"
+                                                        className="p-1.5 rounded-lg transition-colors"
                                                         style={{ color: luxuryColors.textSecondary, backgroundColor: 'rgba(0, 0, 0, 0.05)' }}
                                                     >
-                                                        <X className="w-4 h-4" />
+                                                        <X className="w-3 h-3 sm:w-4 sm:h-4" />
                                                     </button>
                                                 </div>
                                             </>
                                         ) : (
                                             <>
-                                                <div className="flex-1">
-                                                    <span className="font-medium block" style={{ color: luxuryColors.textPrimary }}>{cat.name}</span>
+                                                <div className="flex-1 min-w-0">
+                                                    <span className="font-medium block truncate" style={{ color: luxuryColors.textPrimary }}>{cat.name}</span>
                                                     <span className="text-xs" style={{ color: luxuryColors.textSecondary }}>{cat.slug}</span>
                                                 </div>
-                                                <div className="flex gap-1 sm:gap-2 flex-shrink-0">
+                                                <div className="flex gap-1 flex-shrink-0">
                                                     <button
                                                         onClick={() => handleStartEdit(cat)}
-                                                        className="p-1.5 sm:p-2 rounded-lg transition-colors hover:bg-black/5"
+                                                        className="p-1.5 rounded-lg transition-colors hover:bg-black/5"
                                                         style={{ color: luxuryColors.accentGold }}
                                                     >
-                                                        <Pencil className="w-4 h-4" />
+                                                        <Pencil className="w-3 h-3 sm:w-4 sm:h-4" />
                                                     </button>
                                                     <button
                                                         onClick={() => handleDelete(cat.id, cat.name)}
-                                                        className="p-1.5 sm:p-2 rounded-lg transition-colors hover:shadow-sm"
+                                                        className="p-1.5 rounded-lg transition-colors hover:shadow-sm"
                                                         style={{ color: luxuryColors.error, backgroundColor: `${luxuryColors.error}10` }}
                                                     >
-                                                        <Trash2 className="w-4 h-4" />
+                                                        <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                                                     </button>
                                                 </div>
                                             </>
@@ -232,7 +232,7 @@ export default function CategoriesPage() {
 
                 {/* Add Form */}
                 <div
-                    className="rounded-xl shadow-sm p-4 sm:p-6 h-fit"
+                    className="rounded-xl p-4  h-fit"
                     style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}
                 >
                     <h2 className="text-base sm:text-lg font-bold mb-4" style={{ color: luxuryColors.textPrimary }}>Add New Category</h2>
@@ -255,7 +255,7 @@ export default function CategoriesPage() {
                         </div>
                         <button
                             type="submit"
-                            className="w-full py-2.5 rounded-lg font-medium transition-all hover:shadow-md flex justify-center items-center text-sm"
+                            className="w-full py-2.5 rounded-lg font-medium transition-all  flex justify-center items-center text-sm"
                             style={{ backgroundColor: luxuryColors.accentGold, color: luxuryColors.bgLight }}
                         >
                             <Plus className="w-4 h-4 mr-2" />

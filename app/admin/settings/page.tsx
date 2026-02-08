@@ -44,19 +44,19 @@ export default function SettingsPage() {
                 <p className="text-xs sm:text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Manage your store configuration and preferences.</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 md:space-y-8">
 
                 {/* General Store Settings */}
                 <section className="rounded-xl shadow-sm overflow-hidden" style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}>
-                    <div className="px-4 sm:px-6 py-4" style={{ borderBottom: `1px solid ${luxuryColors.border}`, backgroundColor: `${luxuryColors.border}20` }}>
-                        <h2 className="font-semibold text-base sm:text-lg flex items-center gap-2" style={{ color: luxuryColors.textPrimary }}>
-                            <Store className="w-5 h-5" style={{ color: luxuryColors.textSecondary }} />
+                    <div className="px-3 sm:px-4 md:px-6 py-3 sm:py-4" style={{ borderBottom: `1px solid ${luxuryColors.border}`, backgroundColor: `${luxuryColors.border}20` }}>
+                        <h2 className="font-semibold text-sm sm:text-base md:text-lg flex items-center gap-2" style={{ color: luxuryColors.textPrimary }}>
+                            <Store className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: luxuryColors.textSecondary }} />
                             Store Information
                         </h2>
                         <p className="text-xs sm:text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Basic details visible to your customers.</p>
                     </div>
-                    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    <div className="p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4 md:space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
                             <div className="space-y-2">
                                 <label className="text-xs sm:text-sm font-medium" style={{ color: luxuryColors.textPrimary }}>Store Name</label>
                                 <div className="relative">
@@ -99,15 +99,15 @@ export default function SettingsPage() {
 
                 {/* Regional Settings */}
                 <section className="rounded-xl shadow-sm overflow-hidden" style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}>
-                    <div className="px-4 sm:px-6 py-4" style={{ borderBottom: `1px solid ${luxuryColors.border}`, backgroundColor: `${luxuryColors.border}20` }}>
-                        <h2 className="font-semibold text-base sm:text-lg flex items-center gap-2" style={{ color: luxuryColors.textPrimary }}>
-                            <Globe className="w-5 h-5" style={{ color: luxuryColors.textSecondary }} />
+                    <div className="px-3 sm:px-4 md:px-6 py-3 sm:py-4" style={{ borderBottom: `1px solid ${luxuryColors.border}`, backgroundColor: `${luxuryColors.border}20` }}>
+                        <h2 className="font-semibold text-sm sm:text-base md:text-lg flex items-center gap-2" style={{ color: luxuryColors.textPrimary }}>
+                            <Globe className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: luxuryColors.textSecondary }} />
                             Regional Preferences
                         </h2>
                         <p className="text-xs sm:text-sm mt-1" style={{ color: luxuryColors.textSecondary }}>Set your currency and local time.</p>
                     </div>
-                    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    <div className="p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4 md:space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
                             <div className="space-y-2">
                                 <label className="text-xs sm:text-sm font-medium" style={{ color: luxuryColors.textPrimary }}>Currency</label>
                                 <div className="relative">
@@ -156,19 +156,19 @@ export default function SettingsPage() {
 
                 {/* Notifications */}
                 <section className="rounded-xl shadow-sm overflow-hidden" style={{ backgroundColor: luxuryColors.bgLight, border: `1px solid ${luxuryColors.border}` }}>
-                    <div className="px-4 sm:px-6 py-4" style={{ borderBottom: `1px solid ${luxuryColors.border}`, backgroundColor: `${luxuryColors.border}20` }}>
-                        <h2 className="font-semibold text-base sm:text-lg flex items-center gap-2" style={{ color: luxuryColors.textPrimary }}>
-                            <Bell className="w-5 h-5" style={{ color: luxuryColors.textSecondary }} />
+                    <div className="px-3 sm:px-4 md:px-6 py-3 sm:py-4" style={{ borderBottom: `1px solid ${luxuryColors.border}`, backgroundColor: `${luxuryColors.border}20` }}>
+                        <h2 className="font-semibold text-sm sm:text-base md:text-lg flex items-center gap-2" style={{ color: luxuryColors.textPrimary }}>
+                            <Bell className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: luxuryColors.textSecondary }} />
                             Notifications
                         </h2>
                     </div>
-                    <div className="p-4 sm:p-6 space-y-4">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="font-medium text-sm" style={{ color: luxuryColors.textPrimary }}>Order Alert</p>
+                    <div className="p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4">
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="min-w-0 flex-1">
+                                <p className="font-medium text-xs sm:text-sm" style={{ color: luxuryColors.textPrimary }}>Order Alert</p>
                                 <p className="text-xs" style={{ color: luxuryColors.textSecondary }}>Receive an email when a new order is placed.</p>
                             </div>
-                            <label className="relative inline-flex items-center cursor-pointer">
+                            <label className="relative inline-flex items-center cursor-pointer flex-shrink-0">
                                 <input
                                     type="checkbox"
                                     name="orderNotifications"
@@ -181,12 +181,12 @@ export default function SettingsPage() {
                                 </div>
                             </label>
                         </div>
-                        <div className="flex items-center justify-between pt-4" style={{ borderTop: `1px solid ${luxuryColors.border}` }}>
-                            <div>
-                                <p className="font-medium text-sm" style={{ color: luxuryColors.textPrimary }}>Marketing Emails</p>
+                        <div className="flex items-center justify-between gap-3 pt-3 sm:pt-4" style={{ borderTop: `1px solid ${luxuryColors.border}` }}>
+                            <div className="min-w-0 flex-1">
+                                <p className="font-medium text-xs sm:text-sm" style={{ color: luxuryColors.textPrimary }}>Marketing Emails</p>
                                 <p className="text-xs" style={{ color: luxuryColors.textSecondary }}>Receive tips and feature updates.</p>
                             </div>
-                            <label className="relative inline-flex items-center cursor-pointer">
+                            <label className="relative inline-flex items-center cursor-pointer flex-shrink-0">
                                 <input
                                     type="checkbox"
                                     name="promoEmails"
@@ -204,13 +204,13 @@ export default function SettingsPage() {
 
                 {/* Security / Danger Zone - Placeholder */}
                 <section className="rounded-xl shadow-sm overflow-hidden opacity-80 hover:opacity-100 transition-opacity" style={{ backgroundColor: `${luxuryColors.error}10`, border: `1px solid ${luxuryColors.error}40` }}>
-                    <div className="px-4 sm:px-6 py-4" style={{ borderBottom: `1px solid ${luxuryColors.error}40` }}>
-                        <h2 className="font-semibold text-base sm:text-lg flex items-center gap-2" style={{ color: luxuryColors.error }}>
-                            <Lock className="w-5 h-5" />
+                    <div className="px-3 sm:px-4 md:px-6 py-3 sm:py-4" style={{ borderBottom: `1px solid ${luxuryColors.error}40` }}>
+                        <h2 className="font-semibold text-sm sm:text-base md:text-lg flex items-center gap-2" style={{ color: luxuryColors.error }}>
+                            <Lock className="w-4 h-4 sm:w-5 sm:h-5" />
                             Security
                         </h2>
                     </div>
-                    <div className="p-4 sm:p-6">
+                    <div className="p-3 sm:p-4 md:p-6">
                         <button type="button" className="text-xs sm:text-sm font-medium hover:underline" style={{ color: luxuryColors.error }}>
                             Change Admin Password
                         </button>

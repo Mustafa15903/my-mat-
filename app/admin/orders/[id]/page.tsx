@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 import { ArrowLeft, Calendar, Loader2, MapPin, Package, User, CheckCircle, Clock, Truck, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { luxuryColors } from '@/lib/theme';
 
 interface OrderDetailsProps {
     params: Promise<{ id: string }>;
@@ -74,12 +75,12 @@ export default function OrderDetailsPage({ params }: OrderDetailsProps) {
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-            case 'processing': return 'bg-blue-100 text-blue-800 border-blue-200';
-            case 'shipped': return 'bg-purple-100 text-purple-800 border-purple-200';
-            case 'delivered': return 'bg-green-100 text-green-800 border-green-200';
-            case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
-            default: return 'bg-gray-100 text-gray-800 border-gray-200';
+            case 'pending': return { bg: '#fef3c7', text: '#92400e' };
+            case 'processing': return { bg: '#dbeafe', text: '#1e40af' };
+            case 'shipped': return { bg: '#e9d5ff', text: '#6b21a8' };
+            case 'delivered': return { bg: '#dcfce7', text: '#15803d' };
+            case 'cancelled': return { bg: '#fee2e2', text: '#991b1b' };
+            default: return { bg: '#f3f4f6', text: '#374151' };
         }
     };
 
@@ -107,23 +108,24 @@ export default function OrderDetailsPage({ params }: OrderDetailsProps) {
     return (
         <div className="space-y-6 max-w-5xl mx-auto">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
+            <div className="flex flex-col gap-4">
+                <div className="flex items-start gap-3 sm:gap-4">
                     <Link
                         href="/admin/orders"
-                        className="p-2 -ml-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-lg transition-colors"
+                        className="p-2 -ml-2 rounded-lg transition-colors flex-shrink-0"
+                        style={{ color: luxuryColors.textSecondary }}
                     >
                         <ArrowLeft className="w-5 h-5" />
                     </Link>
-                    <div>
-                        <div className="flex items-center gap-3">
-                            <h1 className="text-2xl font-bold tracking-tight">Order #{order.id}</h1>
-                            <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(order.status)} capitalize`}>
+                    <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                            <h1 className="text-xl sm:text-2xl font-bold tracking-tight" style={{ color: luxuryColors.textPrimary }}>Order #{order.id}</h1>
+                            <span className="px-2.5 py-1 rounded-full text-xs font-medium capitalize" style={{ backgroundColor: getStatusColor(order.status).bg, color: getStatusColor(order.status).text }}>
                                 {order.status}
                             </span>
                         </div>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1 flex items-center gap-2">
-                            <Calendar className="w-4 h-4" />
+                        <p className="text-xs sm:text-sm mt-2 flex items-center gap-2" style={{ color: luxuryColors.textSecondary }}>
+                            <Calendar className="w-4 h-4 flex-shrink-0" />
                             Placed on {new Date(order.created_at).toLocaleString()}
                         </p>
                     </div>
@@ -136,10 +138,14 @@ export default function OrderDetailsPage({ params }: OrderDetailsProps) {
                             key={status}
                             onClick={() => handleStatusUpdate(status)}
                             disabled={updating || order.status === status}
-                            className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors capitalize ${order.status === status
-                                ? 'bg-blue-600 text-white border-blue-600'
-                                : 'bg-white dark:bg-zinc-900 border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800'
-                                }`}
+                            className="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors capitalize"
+                            style={{
+                                backgroundColor: order.status === status ? luxuryColors.accentGold : luxuryColors.bgLight,
+                                color: order.status === status ? luxuryColors.bgLight : luxuryColors.textPrimary,
+                                border: `1px solid ${order.status === status ? luxuryColors.accentGold : luxuryColors.border}`,
+                                opacity: updating || order.status === status ? 1 : 0.7,
+                                cursor: updating || order.status === status ? 'default' : 'pointer'
+                            }}
                         >
                             {status}
                         </button>

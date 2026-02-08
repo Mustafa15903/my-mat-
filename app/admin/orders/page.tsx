@@ -100,31 +100,31 @@ export default function OrdersPage() {
                                 return (
                                     <div
                                         key={order.id}
-                                        className="p-4 space-y-4 border-b last:border-b-0"
+                                        className="p-3 sm:p-4 space-y-3 border-b last:border-b-0"
                                         style={{ backgroundColor: luxuryColors.bgLight, borderColor: luxuryColors.border }}
                                     >
-                                        <div className="flex items-start justify-between">
-                                            <div>
+                                        <div className="flex items-start justify-between gap-2">
+                                            <div className="min-w-0 flex-1">
                                                 <p className="text-xs font-mono" style={{ color: luxuryColors.textSecondary }}>Order #{order.id}</p>
-                                                <p className="text-sm font-bold mt-1" style={{ color: luxuryColors.textPrimary }}>{order.customer_name || 'Guest'}</p>
-                                                <p className="text-xs" style={{ color: luxuryColors.textSecondary }}>{order.customer_email}</p>
+                                                <p className="text-sm font-bold mt-1 truncate" style={{ color: luxuryColors.textPrimary }}>{order.customer_name || 'Guest'}</p>
+                                                <p className="text-xs truncate" style={{ color: luxuryColors.textSecondary }}>{order.customer_email}</p>
                                             </div>
-                                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium capitalize" style={{ backgroundColor: statusColor.bg, color: statusColor.text }}>
+                                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium capitalize flex-shrink-0" style={{ backgroundColor: statusColor.bg, color: statusColor.text }}>
                                                 {order.status}
                                             </span>
                                         </div>
-                                        <div className="flex items-center justify-between pt-2 border-t" style={{ borderColor: luxuryColors.border }}>
-                                            <div>
+                                        <div className="flex items-center justify-between gap-2 pt-2 border-t" style={{ borderColor: luxuryColors.border }}>
+                                            <div className="flex-1">
                                                 <p className="text-xs" style={{ color: luxuryColors.textSecondary }}>Date</p>
-                                                <p className="text-sm font-medium" style={{ color: luxuryColors.textPrimary }}>{new Date(order.created_at).toLocaleDateString()}</p>
+                                                <p className="text-xs sm:text-sm font-medium" style={{ color: luxuryColors.textPrimary }}>{new Date(order.created_at).toLocaleDateString()}</p>
                                             </div>
-                                            <div>
+                                            <div className="flex-1">
                                                 <p className="text-xs" style={{ color: luxuryColors.textSecondary }}>Total</p>
-                                                <p className="text-sm font-bold" style={{ color: luxuryColors.textPrimary }}>${order.total_amount?.toFixed(2)}</p>
+                                                <p className="text-xs sm:text-sm font-bold" style={{ color: luxuryColors.textPrimary }}>${order.total_amount?.toFixed(2)}</p>
                                             </div>
                                             <Link
                                                 href={`/admin/orders/${order.id}`}
-                                                className="inline-flex items-center justify-center p-2 rounded-lg transition-all hover:shadow-sm"
+                                                className="inline-flex items-center justify-center p-2 rounded-lg transition-all hover:shadow-sm flex-shrink-0"
                                                 style={{
                                                     color: luxuryColors.accentGold,
                                                     backgroundColor: `${luxuryColors.accentGold}10`

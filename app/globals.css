@@ -64,36 +64,64 @@ canvas {
    MOBILE OVERFLOW PREVENTION
    =================================== */
 
-/* Prevent all elements from exceeding viewport */
-* {
+/* Limit main content containers only (avoid * which breaks buttons, badges, sidebars) */
+main,
+section,
+.horizontal-scroll,
+[role="region"] {
   max-width: 100%;
 }
 
-/* Special handling for positioned elements */
+/* Special handling for positioned elements that should not overflow viewport */
 .fixed,
-.absolute,
-[style*="position: fixed"],
-[style*="position: absolute"] {
+.absolute {
   max-width: 100vw;
+  box-sizing: border-box;
+}
+
+/* ===================================
+   إزالة الظلال في الشاشات الصغيرة
+   =================================== */
+@media (max-width: 767px) {
+  /* إزالة جميع الظلال */
+  *:not(.keep-shadow) {
+    box-shadow: none !important;
+  }
+  
+  /* إزالة تأثيرات الـ hover المتعلقة بالظلال */
+  *:hover,
+  *:focus {
+    box-shadow: none !important;
+  }
 }
 
 /* Mobile-specific constraints */
 @media (max-width: 768px) {
-  * {
-    max-width: 100vw !important;
+  body > main,
+  body > section {
+    max-width: 100vw;
   }
-  
-  /* Contain fixed/absolute elements */
-  .fixed,
-  .absolute {
-    left: 0;
-    right: 0;
-    max-width: 100% !important;
+
+  /* Better touch targets on mobile */
+  button,
+  [role="button"],
+  a {
+    min-height: 44px;
+    min-width: 44px;
   }
-  
-  /* Prevent transforms from causing overflow */
-  *[style*="transform"] {
-    overflow: visible;
+
+  /* Prevent horizontal overflow on inputs */
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+    max-width: 100%;
+  }
+
+  /* Mobile-friendly spacing */
+  .mobile-safe-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 

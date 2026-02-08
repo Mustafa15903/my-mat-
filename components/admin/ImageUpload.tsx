@@ -63,7 +63,7 @@ export default function ImageUpload({ onUpload, defaultImage }: ImageUploadProps
                         <button
                             onClick={removeImage}
                             type="button"
-                            className="absolute top-2 right-2 p-1 bg-white rounded-full shadow-sm hover:bg-gray-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 transition-colors"
+                            className="absolute top-2 right-2 p-1 bg-white rounded-full  transition-colors"
                         >
                             <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                         </button>

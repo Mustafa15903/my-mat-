@@ -132,20 +132,20 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
 
       {/* Section Title */}
       <div
-        className="mb-8 text-center px-4"
+        className="mb-6 sm:mb-8 text-center px-3 sm:px-4"
         style={{
           animation: 'titleFadeIn 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) backwards',
           maxWidth: '100vw',
         }}
       >
         <h1
-          className="text-4xl md:text-5xl font-light tracking-tight mb-4"
+          className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight mb-2 sm:mb-4"
           style={{ color: luxuryColors.textPrimary }}
         >
           Our Collection
         </h1>
         <p
-          className="text-sm tracking-wide"
+          className="text-xs sm:text-sm tracking-wide"
           style={{ color: luxuryColors.textSecondary }}
         >
           Crafted with care for moments of devotion

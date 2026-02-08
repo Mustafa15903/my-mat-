@@ -200,21 +200,32 @@ export default function ProductFeed({ products, onAddToCart }: ProductFeedProps)
             })}
           </div>
 
-          {/* Mobile Pagination Dots */}
-          <div className="mt-4 flex gap-2 justify-center" role="tablist" aria-label="Slides">
-            {products.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => scrollToIndex(index)}
-                className="w-2 h-2 rounded-full transition-all duration-300"
-                role="tab"
-                aria-selected={centeredIndex === index}
-                style={{
-                  backgroundColor: centeredIndex === index ? luxuryColors.accentGold : luxuryColors.border,
-                  transform: centeredIndex === index ? 'scale(1.5)' : 'scale(1)',
-                }}
-              />
-            ))}
+          {/* Mobile Pagination Dots - من الملف الجديد */}
+          <div className="mt-8 mb-12 text-center" role="tablist" aria-label="Slides">
+            <div className="flex gap-2 justify-center">
+              {products.map((product, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollToIndex(index)}
+                  className="group relative flex items-center justify-center w-11 h-11 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 rounded-full"
+                  role="tab"
+                  aria-selected={centeredIndex === index}
+                  aria-label={`Go to product ${index + 1}: ${product.name}`}
+                  style={{
+                    // @ts-ignore
+                    '--tw-ring-color': luxuryColors.accentGold,
+                  }}
+                >
+                  <div
+                    className="w-2 h-2 rounded-full transition-all duration-300 group-hover:scale-125 group-active:scale-150"
+                    style={{
+                      backgroundColor: centeredIndex === index ? luxuryColors.accentGold : luxuryColors.border,
+                      transform: centeredIndex === index ? 'scale(1.5)' : 'scale(1)',
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 

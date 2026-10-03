@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import ProductFeed from '@/components/ProductFeed';
 import { luxuryColors } from '@/lib/theme';
 import { supabase } from '@/lib/supabase';
@@ -77,6 +78,51 @@ export default function Page() {
           overflowX: 'hidden',
         }}
       >
+        <div className="w-full px-3 sm:px-6 md:px-8 mb-8 sm:mb-10">
+          <div className="mx-auto max-w-6xl overflow-hidden rounded-[28px] border border-[#e8e1d7] bg-white/80 shadow-[0_24px_80px_rgba(45,32,21,0.08)] backdrop-blur-sm">
+            <div className="grid md:grid-cols-[1.05fr_0.95fr] items-center">
+              <div className="p-6 sm:p-8 lg:p-12">
+                <span className="inline-flex rounded-full border border-[#d9c8ad] bg-[#f9f4ee] px-3 py-1 text-[10px] sm:text-xs font-medium uppercase tracking-[0.22em] text-[#7c5b3a]">
+                  Crafted for comfort
+                </span>
+                <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-light tracking-[-0.04em] text-[#2d2014]">
+                  Beautiful prayer mats for daily moments of peace.
+                </h1>
+                <p className="mt-4 max-w-xl text-sm sm:text-base leading-7 text-[#5c4b3d]">
+                  Explore soft, elegant designs inspired by traditional craftsmanship, modern comfort, and a calming everyday ritual.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <button
+                    onClick={() => setSelectedCategory('')}
+                    className="rounded-full px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-95"
+                    style={{ backgroundColor: luxuryColors.textPrimary }}
+                  >
+                    Shop all
+                  </button>
+                  <button
+                    onClick={() => setSelectedCategory(categories[0]?.name || '')}
+                    className="rounded-full border px-5 py-2.5 text-sm font-medium transition hover:border-[#b98d5b] hover:text-[#2d2014]"
+                    style={{ borderColor: luxuryColors.border, color: luxuryColors.textPrimary }}
+                  >
+                    Browse favorites
+                  </button>
+                </div>
+              </div>
+
+              <div className="relative min-h-[320px] sm:min-h-[420px] w-full">
+                <Image
+                  src="/img/gold%20and%20blue%20vintage%20prayer%20mat.jpg"
+                  alt="Prayer mat collection"
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         {loading ? (
           <div className="flex h-[50vh] items-center justify-center">
             <Loader2 className="w-10 h-10 text-gray-400 animate-spin" />

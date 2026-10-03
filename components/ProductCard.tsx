@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { ShoppingBag } from 'lucide-react';
 import { luxuryColors } from '@/lib/theme';
@@ -12,12 +12,33 @@ interface ProductCardProps {
   index: number;
 }
 
+// Local fallback images
+const fallbackImages = [
+  '/img/1.jpg',
+  '/img/2.jpg',
+  '/img/3.jpg',
+  '/img/4.jpg',
+  '/img/5.jpg',
+  '/img/6.jpg',
+  '/img/7.jpg',
+];
+
 export default React.memo(function ProductCard({ product, onAddToCart, index }: ProductCardProps) {
+  const [imageSrc, setImageSrc] = useState(product.image || fallbackImages[index % fallbackImages.length]);
+  
   // Calculate discount if originalPrice exists
   const hasDiscount = product.originalPrice && product.originalPrice > product.price;
   const discountPercentage = hasDiscount
     ? Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100)
     : 0;
+
+  const handleImageError = () => {
+    // Use fallback image if the main image fails to load
+    const fallbackImg = fallbackImages[index % fallbackImages.length];
+    if (imageSrc !== fallbackImg) {
+      setImageSrc(fallbackImg);
+    }
+  };
 
   return (
     <div
@@ -30,11 +51,14 @@ export default React.memo(function ProductCard({ product, onAddToCart, index }: 
       {/* Image Container */}
       <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-50/50 transition-all duration-500 ease-in-out">
         <Image
-          src={product.image}
-          alt={product.name}
+          src={imageSrc}
+          alt={product.name || 'Prayer Mat'}
           fill
           className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          onError={handleImageError}
+          quality={85}
+          priority={index < 3}
         />
 
         {/* Subtle Gradient Overlay */}
@@ -42,7 +66,12 @@ export default React.memo(function ProductCard({ product, onAddToCart, index }: 
 
         {/* Discount Badge */}
         {hasDiscount && (
-          <div className="absolute top-4 left-4 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm text-xs font-semibold tracking-wide border" style={{ backgroundColor: `${luxuryColors.accentGold}20`, color: luxuryColors.textPrimary, borderColor: luxuryColors.accentGold }}>
+          <div className="absolute top-4 left-4 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm text-xs font-semibold tracking-wide border" 
+            style={{ 
+              backgroundColor: luxuryColors.accentGold,
+              color: '#fff',
+              borderColor: luxuryColors.accentGold
+            }}>
             -{discountPercentage}%
           </div>
         )}
@@ -54,17 +83,17 @@ export default React.memo(function ProductCard({ product, onAddToCart, index }: 
         {/* Title & Description */}
         <div className="space-y-1">
           <h3 className="text-base sm:text-lg font-medium tracking-tight leading-snug line-clamp-2" style={{ color: luxuryColors.textPrimary }}>
-            {product.name}
+            {product.name || 'Prayer Mat'}
           </h3>
           <p className="text-xs sm:text-sm font-normal leading-relaxed line-clamp-2" style={{ color: luxuryColors.textSecondary }}>
-            {product.description}
+            {product.description || 'Premium prayer mat with beautiful design'}
           </p>
         </div>
 
         {/* Price Section */}
         <div className="flex items-baseline gap-2 mt-auto pt-2">
           <span className="text-xl font-bold tracking-tight" style={{ color: luxuryColors.accentGold }}>
-            ${product.price.toFixed(0)}
+            ${product.price?.toFixed(0) || '0'}
           </span>
           {hasDiscount && (
             <span className="text-sm line-through font-normal" style={{ color: luxuryColors.textSecondary }}>
@@ -76,7 +105,7 @@ export default React.memo(function ProductCard({ product, onAddToCart, index }: 
         {/* Add to Cart Button */}
         <button
           onClick={() => onAddToCart(product)}
-          className="relative w-full overflow-hidden rounded-xl text-white py-3.5 px-4 text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md flex items-center justify-center gap-2 group/btn"
+          className="relative w-full overflow-hidden rounded-xl text-white py-3.5 px-4 text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-sm flex items-center justify-center gap-2 group/btn"
           style={{ backgroundColor: luxuryColors.textPrimary }}
         >
           <ShoppingBag className="w-4 h-4 transition-transform duration-300 group-hover/btn:-translate-y-0.5" />

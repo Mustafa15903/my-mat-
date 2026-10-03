@@ -7,6 +7,18 @@ import { luxuryColors } from '@/lib/theme';
 import { supabase } from '@/lib/supabase';
 import { Loader2 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { prayerMats } from '@/lib/products';
+
+// Local images from public/img folder as fallback
+const localImages = [
+  '/img/1.jpg',
+  '/img/2.jpg',
+  '/img/3.jpg',
+  '/img/4.jpg',
+  '/img/5.jpg',
+  '/img/6.jpg',
+  '/img/7.jpg',
+];
 
 export default function Page() {
   const [products, setProducts] = useState<any[]>([]);
@@ -22,7 +34,8 @@ export default function Page() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      // Fetch Products
+      
+      // Fetch Products from Supabase
       const { data: productsData, error: productsError } = await supabase
         .from('products')
         .select('*')
@@ -30,11 +43,32 @@ export default function Page() {
 
       if (productsError) throw productsError;
 
-      const formattedProducts = (productsData || []).map((p) => ({
-        ...p,
-        image: p.image_url,
-      }));
-      setProducts(formattedProducts);
+      // Format products with fallback images from local public folder
+      const formattedProducts = (productsData || []).map((p, index) => {
+        // Use local image as fallback if image_url is missing or broken
+        const imageUrl = p.image_url && p.image_url.trim() 
+          ? p.image_url 
+          : localImages[index % localImages.length]; // Cycle through local images
+        
+        return {
+          ...p,
+          image: imageUrl,
+          id: p.id || index + 1,
+          name: p.name || 'Prayer Mat',
+          price: p.price || 299,
+          description: p.description || 'Premium prayer mat with beautiful design',
+        };
+      });
+
+      // If no products from database, use local products.ts
+      const productsToShow = formattedProducts.length > 0 
+        ? formattedProducts 
+        : prayerMats.map(mat => ({
+            ...mat,
+            image: mat.image,
+          }));
+
+      setProducts(productsToShow);
 
       // Fetch Categories
       const { data: categoriesData, error: categoriesError } = await supabase
@@ -43,10 +77,27 @@ export default function Page() {
         .order('name', { ascending: true });
 
       if (categoriesError) throw categoriesError;
-      setCategories(categoriesData || []);
+      
+      // Fallback categories if empty
+      const categoriesToShow = (categoriesData && categoriesData.length > 0) 
+        ? categoriesData 
+        : [
+            { id: 1, name: 'Premium' },
+            { id: 2, name: 'Traditional' },
+            { id: 3, name: 'Modern' },
+          ];
+      
+      setCategories(categoriesToShow);
 
     } catch (error) {
       console.error('Error fetching data:', error);
+      // Fallback to local products if Supabase fails
+      setProducts(prayerMats);
+      setCategories([
+        { id: 1, name: 'Premium' },
+        { id: 2, name: 'Traditional' },
+        { id: 3, name: 'Modern' },
+      ]);
     } finally {
       setLoading(false);
     }
